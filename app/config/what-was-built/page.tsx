@@ -4,12 +4,34 @@ import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { CONFIG_AUTH_HEADER } from "@/lib/config-auth";
 import { apiClient } from "@/lib/axios";
+import { COMMUNITIES, type ProjectCommunity } from "@/lib/config";
 import { CODE_STORAGE_KEY } from "../page";
+
+type ProjectEditorItem = {
+  id: number;
+  name: string;
+  community: ProjectCommunity;
+  description: string;
+  techTags: string[];
+  tags: string[];
+  demoHref: string;
+  likes: number;
+};
 
 type EditorState = {
   publicFormEnabled: boolean;
   liveCount: number;
-  projects: { id: number; name: string; community: string }[];
+  projects: ProjectEditorItem[];
+};
+
+type EditDraft = {
+  name: string;
+  community: ProjectCommunity;
+  description: string;
+  techTags: string;
+  tags: string;
+  demoHref: string;
+  likes: string;
 };
 
 type AuthState = "checking" | "locked" | "unlocked";
@@ -27,6 +49,9 @@ export default function WhatWasBuiltConfigPage() {
   const [isDirty, setIsDirty] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const [deletingId, setDeletingId] = useState<number | null>(null);
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [savingProjectId, setSavingProjectId] = useState<number | null>(null);
+  const [editDraft, setEditDraft] = useState<EditDraft | null>(null);
 
   const authHeaders = useMemo(
     () => ({
@@ -141,6 +166,86 @@ export default function WhatWasBuiltConfigPage() {
       setError("Could not delete project.");
     } finally {
       setDeletingId(null);
+    }
+  }
+
+  function startEdit(project: ProjectEditorItem) {
+    setEditingId(project.id);
+    setEditDraft({
+      name: project.name,
+      community: project.community,
+      description: project.description,
+      techTags: project.techTags.join(", "),
+      tags: project.tags.join(", "),
+      demoHref: project.demoHref,
+      likes: String(project.likes),
+    });
+    setError("");
+    setSuccess("");
+  }
+
+  function cancelEdit() {
+    setEditingId(null);
+    setEditDraft(null);
+    setError("");
+  }
+
+  async function saveProjectEdit(projectId: number) {
+    if (!editDraft) {
+      return;
+    }
+
+    const likes = Number.parseInt(editDraft.likes, 10);
+
+    if (!editDraft.name.trim() || !editDraft.description.trim()) {
+      setError("Project name and description are required.");
+      return;
+    }
+
+    if (Number.isNaN(likes) || likes < 0) {
+      setError("Likes must be a valid non-negative number.");
+      return;
+    }
+
+    setSavingProjectId(projectId);
+    setError("");
+
+    try {
+      const payload = {
+        name: editDraft.name.trim(),
+        community: editDraft.community,
+        description: editDraft.description.trim(),
+        techTags: editDraft.techTags
+          .split(",")
+          .map((tag) => tag.trim())
+          .filter(Boolean),
+        tags: editDraft.tags
+          .split(",")
+          .map((tag) => tag.trim())
+          .filter(Boolean),
+        demoHref: editDraft.demoHref.trim() || "#",
+        likes,
+      };
+
+      const { data: updatedProject } = await apiClient.put<ProjectEditorItem>(
+        `/config/what-was-built/${projectId}`,
+        payload,
+        { headers: authHeaders },
+      );
+
+      setData((prev) => ({
+        ...prev,
+        projects: prev.projects.map((project) =>
+          project.id === projectId ? updatedProject : project,
+        ),
+      }));
+      setEditingId(null);
+      setEditDraft(null);
+      setSuccess("Project updated.");
+    } catch {
+      setError("Could not update project.");
+    } finally {
+      setSavingProjectId(null);
     }
   }
 
@@ -272,46 +377,206 @@ export default function WhatWasBuiltConfigPage() {
                     {data.projects.map((project) => (
                       <li
                         key={project.id}
-                        className="flex items-center justify-between gap-3 rounded-lg bg-white px-3 py-2.5"
+                        className="rounded-lg bg-white px-3 py-2.5 mb-2"
                       >
-                        <div className="min-w-0">
-                          <p className="truncate text-sm font-medium text-ink">{project.name}</p>
-                          <p className="truncate text-xs text-ink/50">{project.community}</p>
-                        </div>
-                        <button
-                          type="button"
-                          onClick={() => deleteProject(project.id)}
-                          disabled={deletingId === project.id}
-                          aria-label={`Delete ${project.name}`}
-                          className="shrink-0 rounded-lg p-1.5 text-ink/35 transition-colors hover:bg-coreRed/10 hover:text-coreRed disabled:opacity-40"
-                        >
-                          {deletingId === project.id ? (
-                            <svg
-                              className="h-4 w-4 animate-spin"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                            >
-                              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
-                            </svg>
-                          ) : (
-                            <svg
-                              className="h-4 w-4"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            >
-                              <polyline points="3 6 5 6 21 6" />
-                              <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
-                              <path d="M10 11v6M14 11v6" />
-                              <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
-                            </svg>
-                          )}
-                        </button>
+                        {editingId === project.id && editDraft ? (
+                          <div className="space-y-3">
+                            <div className="grid gap-3 sm:grid-cols-2 mb-2">
+                              <div className="sm:col-span-2">
+                                <label className="mb-1 block text-xs font-semibold text-ink/70">Project name</label>
+                                <input
+                                  value={editDraft.name}
+                                  onChange={(event) =>
+                                    setEditDraft((prev) =>
+                                      prev ? { ...prev, name: event.target.value } : prev,
+                                    )
+                                  }
+                                  className="w-full rounded-lg bg-surface px-3 py-2 text-sm text-ink outline-none ring-2 ring-transparent focus:ring-coreBlue/30"
+                                />
+                              </div>
+
+                              <div>
+                                <label className="mb-1 block text-xs font-semibold text-ink/70">Community</label>
+                                <select
+                                  value={editDraft.community}
+                                  onChange={(event) =>
+                                    setEditDraft((prev) =>
+                                      prev
+                                        ? {
+                                            ...prev,
+                                            community: event.target.value as ProjectCommunity,
+                                          }
+                                        : prev,
+                                    )
+                                  }
+                                  className="w-full rounded-lg bg-surface px-3 py-2 text-sm text-ink outline-none ring-2 ring-transparent focus:ring-coreBlue/30"
+                                >
+                                  {COMMUNITIES.map((community) => (
+                                    <option key={community} value={community}>
+                                      {community}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+
+                              <div>
+                                <label className="mb-1 block text-xs font-semibold text-ink/70">Likes</label>
+                                <input
+                                  type="number"
+                                  min={0}
+                                  value={editDraft.likes}
+                                  onChange={(event) =>
+                                    setEditDraft((prev) =>
+                                      prev ? { ...prev, likes: event.target.value } : prev,
+                                    )
+                                  }
+                                  className="w-full rounded-lg bg-surface px-3 py-2 text-sm text-ink outline-none ring-2 ring-transparent focus:ring-coreBlue/30"
+                                />
+                              </div>
+
+                              <div className="sm:col-span-2">
+                                <label className="mb-1 block text-xs font-semibold text-ink/70">Description</label>
+                                <textarea
+                                  value={editDraft.description}
+                                  onChange={(event) =>
+                                    setEditDraft((prev) =>
+                                      prev
+                                        ? {
+                                            ...prev,
+                                            description: event.target.value,
+                                          }
+                                        : prev,
+                                    )
+                                  }
+                                  rows={3}
+                                  className="w-full rounded-lg bg-surface px-3 py-2 text-sm text-ink outline-none ring-2 ring-transparent focus:ring-coreBlue/30"
+                                />
+                              </div>
+
+                              <div className="sm:col-span-2">
+                                <label className="mb-1 block text-xs font-semibold text-ink/70">Tech tags (comma separated)</label>
+                                <input
+                                  value={editDraft.techTags}
+                                  onChange={(event) =>
+                                    setEditDraft((prev) =>
+                                      prev ? { ...prev, techTags: event.target.value } : prev,
+                                    )
+                                  }
+                                  className="w-full rounded-lg bg-surface px-3 py-2 text-sm text-ink outline-none ring-2 ring-transparent focus:ring-coreBlue/30"
+                                />
+                              </div>
+
+                              <div className="sm:col-span-2">
+                                <label className="mb-1 block text-xs font-semibold text-ink/70">Tags (comma separated)</label>
+                                <input
+                                  value={editDraft.tags}
+                                  onChange={(event) =>
+                                    setEditDraft((prev) =>
+                                      prev ? { ...prev, tags: event.target.value } : prev,
+                                    )
+                                  }
+                                  className="w-full rounded-lg bg-surface px-3 py-2 text-sm text-ink outline-none ring-2 ring-transparent focus:ring-coreBlue/30"
+                                />
+                              </div>
+
+                              <div className="sm:col-span-2">
+                                <label className="mb-1 block text-xs font-semibold text-ink/70">Demo URL</label>
+                                <input
+                                  value={editDraft.demoHref}
+                                  onChange={(event) =>
+                                    setEditDraft((prev) =>
+                                      prev ? { ...prev, demoHref: event.target.value } : prev,
+                                    )
+                                  }
+                                  className="w-full rounded-lg bg-surface px-3 py-2 text-sm text-ink outline-none ring-2 ring-transparent focus:ring-coreBlue/30"
+                                />
+                              </div>
+                            </div>
+
+                            <div className="flex items-center justify-end gap-2">
+                              <button
+                                type="button"
+                                onClick={cancelEdit}
+                                className="rounded-full px-4 py-2 text-xs font-semibold text-ink/70 transition-colors hover:bg-ink/5"
+                              >
+                                Cancel
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => saveProjectEdit(project.id)}
+                                disabled={savingProjectId === project.id}
+                                className="rounded-full bg-ink px-4 py-2 text-xs font-bold text-white transition-colors hover:bg-coreBlue disabled:opacity-50"
+                              >
+                                {savingProjectId === project.id ? "Saving..." : "Save project"}
+                              </button>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="flex items-center justify-between gap-3">
+                            <div className="min-w-0">
+                              <p className="truncate text-sm font-medium text-ink">{project.name}</p>
+                              <p className="truncate text-xs text-ink/50">{project.community}</p>
+                            </div>
+
+                            <div className="flex items-center gap-1">
+                              <button
+                                type="button"
+                                onClick={() => startEdit(project)}
+                                disabled={deletingId === project.id}
+                                aria-label={`Edit ${project.name}`}
+                                className="cursor-pointer shrink-0 rounded-lg p-1.5 text-ink/40 transition-colors hover:bg-coreBlue/10 hover:text-coreBlue disabled:opacity-40"
+                              >
+                                <svg
+                                  className="h-4 w-4"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                >
+                                  <path d="M12 20h9" />
+                                  <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
+                                </svg>
+                              </button>
+
+                              <button
+                                type="button"
+                                onClick={() => deleteProject(project.id)}
+                                disabled={deletingId === project.id}
+                                aria-label={`Delete ${project.name}`}
+                                className="cursor-pointer shrink-0 rounded-lg p-1.5 text-ink/35 transition-colors hover:bg-coreRed/10 hover:text-coreRed disabled:opacity-40"
+                              >
+                                {deletingId === project.id ? (
+                                  <svg
+                                    className="h-4 w-4 animate-spin"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                  >
+                                    <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+                                  </svg>
+                                ) : (
+                                  <svg
+                                    className="h-4 w-4"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  >
+                                    <polyline points="3 6 5 6 21 6" />
+                                    <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                                    <path d="M10 11v6M14 11v6" />
+                                    <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+                                  </svg>
+                                )}
+                              </button>
+                            </div>
+                          </div>
+                        )}
                       </li>
                     ))}
                   </ul>

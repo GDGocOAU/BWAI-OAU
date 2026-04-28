@@ -23,6 +23,16 @@ export type PublicSubmitPayload = {
   demoHref: string;
 };
 
+export type UpdateProjectPayload = {
+  name: string;
+  community: ProjectCommunity;
+  description: string;
+  techTags: string[];
+  tags: string[];
+  demoHref: string;
+  likes: number;
+};
+
 type SavePayload = {
   publicFormEnabled: boolean;
 };
@@ -122,6 +132,35 @@ export async function submitPublicProject(data: PublicSubmitPayload): Promise<vo
 export async function deleteWhatWasBuiltProject(id: number): Promise<void> {
   await prisma.whatWasBuiltProjectLike.deleteMany({ where: { projectId: id } });
   await prisma.whatWasBuiltProject.delete({ where: { id } });
+}
+
+export async function updateWhatWasBuiltProject(
+  id: number,
+  data: UpdateProjectPayload,
+): Promise<Project> {
+  const updated = await prisma.whatWasBuiltProject.update({
+    where: { id },
+    data: {
+      community: data.community,
+      tags: data.tags.map((tag) => tag.trim()).filter(Boolean),
+      name: data.name.trim(),
+      description: data.description.trim(),
+      techTags: data.techTags.map((tag) => tag.trim()).filter(Boolean),
+      demoHref: data.demoHref.trim() || "#",
+      likes: Math.max(0, Math.floor(data.likes)),
+    },
+  }) as any;
+
+  return {
+    id: updated.id,
+    community: toProjectCommunity(updated.community),
+    tags: updated.tags,
+    name: updated.name,
+    description: updated.description,
+    techTags: updated.techTags,
+    demoHref: updated.demoHref,
+    likes: updated.likes,
+  };
 }
 
 export async function toggleWhatWasBuiltProjectLike(
