@@ -1,5 +1,5 @@
 export const EVENT_DATES = {
-	preseries: ["April 18, 2026", "April 25, 2026", "April 29, 2026"],
+	preseries: ["April 18, 2026", "April 24, 2026", "April 25, 2026"],
 	mainEvent: "May 16, 2026",
 };
 
@@ -13,7 +13,7 @@ export const COMMUNITIES = [
 ];
 
 export const NAV_LINKS = [
-	{ label: "Pre-Series", href: "/schedule" },
+	{ label: "Pre-Series", href: "/pre-series" },
 	{ label: "Sponsors", href: "/sponsors" },
 	{ label: "Main Event", href: "/main-event" },
 	{ label: "What Was Built", href: "/what-was-built" },
@@ -60,40 +60,59 @@ export const HOMEPAGE_ABOUT = [
 
 export const PRESERIES_EVENTS = [
 	{
-		community: "Data Science & ML",
-		title: "Prompting for Data Workflows",
-		date: "April 18, 2026",
-		location: "VirtualLab",
-		format: "Workshop",
-		registrationHref:
-			"https://gdg.community.dev/events/details/google-gdg-on-campus-obafemi-awolowo-university-ife-nigeria-presents-build-with-ai-oau-build-shift-scale/",
-		photoAlbumHref: "#",
-		accent: "coreBlue",
-		status: "upcoming",
-	},
-	{
 		community: "Mobile & Web Dev",
-		title: "Shipping an AI Companion UI",
-		date: "April 25, 2026",
-		location: "Engineering Hall",
-		format: "Workshop",
-		registrationHref:
-			"https://gdg.community.dev/events/details/google-gdg-on-campus-obafemi-awolowo-university-ife-nigeria-presents-build-with-ai-oau-build-shift-scale/",
+		title: "The Future Stack: Web Development in the Age of AI",
+		date: "April 18, 2026",
+		location: "Step B, Faculty of Technology Building",
+		format: "Hands-on Workshop • 11:00 AM – 4:00 PM",
+		registrationHref: "#",
 		photoAlbumHref: "#",
 		accent: "coreGreen",
-		status: "upcoming",
+		status: "past",
 	},
 	{
-		community: "Cloud & Cybersecurity",
-		title: "Guardrails for Real Products",
-		date: "April 29, 2026",
-		location: "OAU Tech Hub",
-		format: "Panel",
-		registrationHref:
-			"https://gdg.community.dev/events/details/google-gdg-on-campus-obafemi-awolowo-university-ife-nigeria-presents-build-with-ai-oau-build-shift-scale/",
+		community: "Quantum Finance",
+		title: "From Superpositions to Positions",
+		date: "April 24, 2026",
+		location: "Google Meet (Virtual)",
+		format: "Talk & Mentoring • 6:00 PM",
+		registrationHref: "#",
+		photoAlbumHref: "#",
+		accent: "coreRed",
+		status: "past",
+	},
+	{
+		community: "Game Development",
+		title: "Build With AI Game Dev Pre-Series",
+		date: "April 25, 2026",
+		location: "Opolo Hub",
+		format: "Workshop • 9:00 AM – 5:00 PM",
+		registrationHref: "#",
 		photoAlbumHref: "#",
 		accent: "coreYellow",
-		status: "upcoming",
+		status: "past",
+	},
+	{
+		community: "Cybersecurity",
+		title: "Integrating AI into Cybersecurity",
+		date: "April 25, 2026",
+		location: "OAU Campus",
+		format: "Workshop • 11:00 AM",
+		registrationHref: "#",
+		photoAlbumHref: "#",
+		accent: "gray",
+		status: "past",
+	},
+	{
+		community: "Data Science & ML",
+		title: "Build AI Agents with Antigravity",
+		date: "April 25, 2026",
+		location: "OAU Campus",
+		format: "Workshop • 11:00 AM",
+		registrationHref: "#",
+		photoAlbumHref: "#",
+		accent: "coreBlue",
+		status: "past",
 	},
 ] as const;
 

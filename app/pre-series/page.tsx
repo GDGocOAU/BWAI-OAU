@@ -1,5 +1,5 @@
-import { redirect } from "next/navigation";
+import PreSeriesDetailSection from "@/components/pre-series/PreSeriesDetailSection";
 
 export default function PreSeriesPage() {
-    redirect("/schedule");
+    return <PreSeriesDetailSection />;
 }
