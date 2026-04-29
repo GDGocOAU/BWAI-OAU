@@ -3,19 +3,28 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "motion/react";
-import { FiArrowUpRight, FiCalendar, FiMapPin, FiLayers, FiCheckCircle } from "react-icons/fi";
+import {
+    FiCalendar,
+    FiMapPin,
+    FiLayers,
+    FiCheckCircle,
+    FiBookOpen,
+    FiPackage,
+    FiCamera,
+    FiArrowUpRight,
+} from "react-icons/fi";
 import PillTag from "@/components/PillTag";
 import { HERO_PILL_TONE_COLORS } from "@/lib/config";
 
-// Matches the shape of PRESERIES_EVENTS entries (which are `as const`)
 type PreSeriesEvent = {
     readonly community: string;
+    readonly communitySlug: string;
     readonly title: string;
     readonly date: string;
     readonly location: string;
     readonly format: string;
     readonly registrationHref: string;
-    readonly photoAlbumHref: string;
+    readonly googlePhotosHref: string;
     readonly accent: keyof typeof HERO_PILL_TONE_COLORS;
     readonly status: string;
 };
@@ -98,23 +107,35 @@ export default function EventCard({ event, index }: EventCardProps) {
                     </div>
                 </dl>
 
-                {/* CTA */}
-                <div className="mt-auto pt-7">
+                {/* ── CTAs ── */}
+                <div className="mt-auto pt-6">
                     {event.status === "past" ? (
-                        <Link
-                            href = "/"
-                            // href="/what-was-built"
-                            className="inline-flex items-center gap-2 rounded-full border border-ink/20 bg-surface px-5 py-2.5 text-sm font-bold text-ink transition-transform duration-200 hover:-translate-y-0.5 hover:bg-white"
-                        >
-                            <span>See What Was Built</span>
-                            <span
-                                className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-ink text-base"
-                                aria-hidden="true"
+                        /* Past events: 3 action links */
+                        <div className="flex flex-wrap gap-2">
+                            <Link
+                                href={`/pre-series/${event.communitySlug}/blog`}
+                                className="inline-flex items-center gap-1.5 rounded-full border border-ink/15 bg-surface px-4 py-2 text-xs font-semibold text-ink transition-all duration-200 hover:-translate-y-0.5 hover:border-ink/30 hover:bg-white"
                             >
-                                <FiArrowUpRight size={14} />
-                            </span>
-                        </Link>
+                                <FiBookOpen size={12} aria-hidden="true" />
+                                Blog
+                            </Link>
+                            <Link
+                                href={`/what-was-built?community=${encodeURIComponent(event.community)}`}
+                                className="inline-flex items-center gap-1.5 rounded-full border border-ink/15 bg-surface px-4 py-2 text-xs font-semibold text-ink transition-all duration-200 hover:-translate-y-0.5 hover:border-ink/30 hover:bg-white"
+                            >
+                                <FiPackage size={12} aria-hidden="true" />
+                                Projects
+                            </Link>
+                            <Link
+                                href={`/pre-series/${event.communitySlug}/gallery`}
+                                className="inline-flex items-center gap-1.5 rounded-full border border-ink/15 bg-surface px-4 py-2 text-xs font-semibold text-ink transition-all duration-200 hover:-translate-y-0.5 hover:border-ink/30 hover:bg-white"
+                            >
+                                <FiCamera size={12} aria-hidden="true" />
+                                Gallery
+                            </Link>
+                        </div>
                     ) : (
+                        /* Upcoming events: single Get Tickets CTA */
                         <Link
                             href={event.registrationHref}
                             target={isExternal ? "_blank" : undefined}

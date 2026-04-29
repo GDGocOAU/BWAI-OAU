@@ -60,6 +60,12 @@ function WhatWasBuiltPage() {
                 // Ignore malformed local data.
             }
         }
+
+        // Pre-select community filter from ?community= query param
+        const communityParam = new URLSearchParams(window.location.search).get("community");
+        if (communityParam) {
+            setActiveCommunity(communityParam);
+        }
     }, []);
 
     useEffect(() => {
