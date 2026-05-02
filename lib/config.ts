@@ -131,9 +131,26 @@ export const PRESERIES_SLUG_MAP: Record<string, string> = {
 };
 
 const makePhotoSlots = () => Array.from({ length: 15 }, () => "#");
+const webDevPhotoSlots = [
+	"https://bwaioau.site/preseries/web-dev/DSC_7258.jpg",
+	"https://bwaioau.site/preseries/web-dev/DSC_7263.jpg",
+	"https://bwaioau.site/preseries/web-dev/DSC_7275.jpg",
+	"https://bwaioau.site/preseries/web-dev/DSC_7291.jpg",
+	"https://bwaioau.site/preseries/web-dev/DSC_7303.jpg",
+	"https://bwaioau.site/preseries/web-dev/DSC_7322.jpg",
+	"https://bwaioau.site/preseries/web-dev/DSC_7324.jpg",
+	"https://bwaioau.site/preseries/web-dev/DSC_7429.jpg",
+	"https://bwaioau.site/preseries/web-dev/DSC_7430.jpg",
+	"https://bwaioau.site/preseries/web-dev/DSC_7450.jpg",
+	"https://bwaioau.site/preseries/web-dev/DSC_7464.jpg",
+	"https://bwaioau.site/preseries/web-dev/DSC_7575.jpg",
+	"https://bwaioau.site/preseries/web-dev/DSC_7683.jpg",
+	"https://bwaioau.site/preseries/web-dev/DSC_7701.jpg",
+	"https://bwaioau.site/preseries/web-dev/DSC_7737.jpg",
+]
 
 export const PRESERIES_PHOTO_SLOTS: Record<string, string[]> = {
-	"mobile-web-dev": makePhotoSlots(),
+	"mobile-web-dev": webDevPhotoSlots,
 	"quantum-finance": makePhotoSlots(),
 	"game-development": makePhotoSlots(),
 	"cybersecurity": makePhotoSlots(),
