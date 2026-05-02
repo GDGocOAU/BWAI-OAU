@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { FiArrowLeft, FiCalendar, FiUser, FiTag } from "react-icons/fi";
@@ -31,6 +32,21 @@ type Props = {
 };
 
 export default function CommunityBlogPage({ communityName, communitySlug }: Props) {
+    useEffect(() => {
+        if (communitySlug !== "mobile-web-dev") return;
+
+        const script = document.createElement("script");
+        script.src = "https://substack.com/embedjs/embed.js";
+        script.async = true;
+        script.charset = "utf-8";
+
+        document.body.appendChild(script);
+
+        return () => {
+            script.remove();
+        };
+    }, [communitySlug]);
+
     return (
         <main className="min-h-screen bg-base">
             {/* Back nav */}
@@ -63,60 +79,70 @@ export default function CommunityBlogPage({ communityName, communitySlug }: Prop
             </motion.section>
 
             {/* Post card */}
-            <section className="mx-auto w-full max-w-4xl px-4 pb-20 sm:px-6 lg:px-8">
-                <motion.article
-                    className="rounded-2xl border border-ink/15 bg-white p-8"
-                    initial={{ opacity: 0, y: 14 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.1 }}
-                >
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-2">
-                        {PLACEHOLDER_POST.tags.map((tag) => (
-                            <span
-                                key={tag}
-                                className="inline-flex items-center gap-1 rounded-full bg-surface px-3 py-1 text-xs font-medium text-ink/70"
-                            >
-                                <FiTag size={10} aria-hidden="true" />
-                                {tag}
+            {communitySlug !== "mobile-web-dev" ? (
+                <section className="mx-auto w-full max-w-4xl px-4 pb-20 sm:px-6 lg:px-8">
+                    <motion.article
+                        className="rounded-2xl border border-ink/15 bg-white p-8"
+                        initial={{ opacity: 0, y: 14 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.1 }}
+                    >
+                        {/* Tags */}
+                        <div className="flex flex-wrap gap-2">
+                            {PLACEHOLDER_POST.tags.map((tag) => (
+                                <span
+                                    key={tag}
+                                    className="inline-flex items-center gap-1 rounded-full bg-surface px-3 py-1 text-xs font-medium text-ink/70"
+                                >
+                                    <FiTag size={10} aria-hidden="true" />
+                                    {tag}
+                                </span>
+                            ))}
+                        </div>
+
+                        <h2 className="mt-5 text-2xl font-bold text-ink sm:text-3xl">
+                            {communityName}: {PLACEHOLDER_POST.title}
+                        </h2>
+
+                        {/* Meta */}
+                        <div className="mt-3 flex flex-wrap items-center gap-4 text-sm text-ink/55">
+                            <span className="inline-flex items-center gap-1.5">
+                                <FiCalendar size={13} aria-hidden="true" />
+                                {PLACEHOLDER_POST.date}
                             </span>
-                        ))}
+                            <span className="inline-flex items-center gap-1.5">
+                                <FiUser size={13} aria-hidden="true" />
+                                {PLACEHOLDER_POST.author}
+                            </span>
+                        </div>
+
+                        {/* Body */}
+                        <div className="mt-6 space-y-4 text-[0.95rem] leading-7 text-ink/80">
+                            {PLACEHOLDER_POST.body.map((paragraph, i) => (
+                                <p key={i}>{paragraph}</p>
+                            ))}
+                        </div>
+                    </motion.article>
+
+                    {/* More posts placeholder */}
+                    <motion.p
+                        className="mt-8 text-center text-sm text-ink/45"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.4, delay: 0.25 }}
+                    >
+                        More posts will appear here as they are published.
+                    </motion.p>
+                </section>
+            ) : (
+                <>
+                    <div className="substack-post-embed mx-auto w-full max-w-4xl! px-4 pb-20 sm:px-6 lg:px-8">
+                        <p lang="en">BwAI OAU Documentary: The Web Development Pre-series by GDG OAU</p>
+                        <p>By Blessing Agbor, with the Web Dev Community Lead: Oyetunde Joseph.</p>
+                        <a data-post-link href="https://gdgoau.substack.com/p/bwai-oau-documentary-the-web-development">Read on Substack</a>
                     </div>
-
-                    <h2 className="mt-5 text-2xl font-bold text-ink sm:text-3xl">
-                        {communityName}: {PLACEHOLDER_POST.title}
-                    </h2>
-
-                    {/* Meta */}
-                    <div className="mt-3 flex flex-wrap items-center gap-4 text-sm text-ink/55">
-                        <span className="inline-flex items-center gap-1.5">
-                            <FiCalendar size={13} aria-hidden="true" />
-                            {PLACEHOLDER_POST.date}
-                        </span>
-                        <span className="inline-flex items-center gap-1.5">
-                            <FiUser size={13} aria-hidden="true" />
-                            {PLACEHOLDER_POST.author}
-                        </span>
-                    </div>
-
-                    {/* Body */}
-                    <div className="mt-6 space-y-4 text-[0.95rem] leading-7 text-ink/80">
-                        {PLACEHOLDER_POST.body.map((paragraph, i) => (
-                            <p key={i}>{paragraph}</p>
-                        ))}
-                    </div>
-                </motion.article>
-
-                {/* More posts placeholder */}
-                <motion.p
-                    className="mt-8 text-center text-sm text-ink/45"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.4, delay: 0.25 }}
-                >
-                    More posts will appear here as they are published.
-                </motion.p>
-            </section>
+                </>
+            )}
         </main>
     );
 }

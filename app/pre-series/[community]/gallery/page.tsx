@@ -1,25 +1,32 @@
 import CommunityGalleryPage from "@/components/pre-series/CommunityGalleryPage";
-import { PRESERIES_SLUG_MAP, PRESERIES_EVENTS } from "@/lib/config";
+import {
+    PRESERIES_SLUG_MAP,
+    PRESERIES_EVENTS,
+    PRESERIES_PHOTO_SLOTS,
+} from "@/lib/config";
 
 type Props = {
     params: { community: string };
 };
 
-export default function PreSeriesGalleryPage({ params }: Props) {
+export default async function PreSeriesGalleryPage({ params }: Props) {
     // Fall back gracefully for unknown slugs — never show a raw 404
+    const {community} = await params;
     const communityName =
-        PRESERIES_SLUG_MAP[params.community] ?? params.community;
+        PRESERIES_SLUG_MAP[community] ?? community;
 
     const event = PRESERIES_EVENTS.find(
-        (e) => e.communitySlug === params.community,
+        (e) => e.communitySlug === community,
     );
     const googlePhotosHref = event?.googlePhotosHref ?? "#";
+    const photoUrls = PRESERIES_PHOTO_SLOTS[community] ?? Array.from({ length: 15 }, () => "#");
 
     return (
         <CommunityGalleryPage
             communityName={communityName}
-            communitySlug={params.community}
+            communitySlug={community}
             googlePhotosHref={googlePhotosHref}
+            photoUrls={photoUrls}
         />
     );
 }

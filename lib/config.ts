@@ -130,6 +130,16 @@ export const PRESERIES_SLUG_MAP: Record<string, string> = {
 	"data-science-ml": "Data Science & ML",
 };
 
+const makePhotoSlots = () => Array.from({ length: 15 }, () => "#");
+
+export const PRESERIES_PHOTO_SLOTS: Record<string, string[]> = {
+	"mobile-web-dev": makePhotoSlots(),
+	"quantum-finance": makePhotoSlots(),
+	"game-development": makePhotoSlots(),
+	"cybersecurity": makePhotoSlots(),
+	"data-science-ml": makePhotoSlots(),
+};
+
 export type ScheduleEvent = {
 	id: number;
 	order: number;

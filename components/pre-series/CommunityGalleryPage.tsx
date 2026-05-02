@@ -4,20 +4,21 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { FiArrowLeft, FiArrowUpRight, FiImage } from "react-icons/fi";
 
-// 10 placeholder slots — replace with real photo URLs when available
-const PHOTO_SLOTS = Array.from({ length: 10 }, (_, i) => i + 1);
-
 type Props = {
     communityName: string;
     communitySlug: string;
     googlePhotosHref: string;
+    photoUrls: string[];
 };
 
 export default function CommunityGalleryPage({
     communityName,
+    communitySlug,
     googlePhotosHref,
+    photoUrls,
 }: Props) {
     const hasPhotos = googlePhotosHref && googlePhotosHref !== "#";
+    const slots = photoUrls.length > 0 ? photoUrls.slice(0, 15) : Array.from({ length: 15 }, () => "#");
 
     return (
         <main className="min-h-screen bg-base">
@@ -56,9 +57,9 @@ export default function CommunityGalleryPage({
             {/* Photo grid */}
             <section className="mx-auto w-full max-w-7xl px-4 pb-10 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-                    {PHOTO_SLOTS.map((slot, index) => (
+                    {slots.map((photoUrl, index) => (
                         <motion.div
-                            key={slot}
+                            key={`${communitySlug}-photo-${index + 1}`}
                             className="group relative aspect-square overflow-hidden rounded-2xl border border-ink/10 bg-surface"
                             initial={{ opacity: 0, scale: 0.96 }}
                             animate={{ opacity: 1, scale: 1 }}
@@ -68,11 +69,19 @@ export default function CommunityGalleryPage({
                                 delay: index * 0.04,
                             }}
                         >
-                            {/* Placeholder fill */}
-                            <div className="flex h-full w-full flex-col items-center justify-center gap-2 text-ink/20">
-                                <FiImage size={28} aria-hidden="true" />
-                                <span className="text-xs font-medium">Photo {slot}</span>
-                            </div>
+                            {photoUrl && photoUrl !== "#" ? (
+                                <img
+                                    src={photoUrl}
+                                    alt={`${communityName} pre-series photo ${index + 1}`}
+                                    loading="lazy"
+                                    className="h-full w-full object-cover"
+                                />
+                            ) : (
+                                <div className="flex h-full w-full flex-col items-center justify-center gap-2 text-ink/20">
+                                    <FiImage size={28} aria-hidden="true" />
+                                    <span className="text-xs font-medium">Photo {index + 1}</span>
+                                </div>
+                            )}
                         </motion.div>
                     ))}
                 </div>

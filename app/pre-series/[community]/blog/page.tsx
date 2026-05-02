@@ -5,15 +5,17 @@ type Props = {
     params: { community: string };
 };
 
-export default function PreSeriesBlogPage({ params }: Props) {
+export default async function PreSeriesBlogPage({ params }: Props) {
     // Fall back gracefully for unknown slugs — never show a raw 404
+    const {community} = await params;
+    
     const communityName =
-        PRESERIES_SLUG_MAP[params.community] ?? params.community;
+        PRESERIES_SLUG_MAP[community] ?? community;
 
     return (
         <CommunityBlogPage
             communityName={communityName}
-            communitySlug={params.community}
+            communitySlug={community}
         />
     );
 }
