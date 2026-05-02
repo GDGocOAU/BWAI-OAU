@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { FiArrowLeft, FiArrowUpRight, FiImage } from "react-icons/fi";
@@ -19,6 +20,56 @@ export default function CommunityGalleryPage({
 }: Props) {
     const hasPhotos = googlePhotosHref && googlePhotosHref !== "#";
     const slots = photoUrls.length > 0 ? photoUrls.slice(0, 15) : Array.from({ length: 15 }, () => "#");
+    const photos = useMemo(
+        () =>
+            slots
+                .map((url, slotIndex) => ({ url, slotIndex }))
+                .filter((photo) => photo.url && photo.url !== "#"),
+        [slots],
+    );
+
+    const [activePhotoIndex, setActivePhotoIndex] = useState<number | null>(null);
+    const [touchStartX, setTouchStartX] = useState<number | null>(null);
+
+    const showPreviousPhoto = () => {
+        setActivePhotoIndex((current) => {
+            if (current === null || photos.length === 0) return current;
+            return (current - 1 + photos.length) % photos.length;
+        });
+    };
+
+    const showNextPhoto = () => {
+        setActivePhotoIndex((current) => {
+            if (current === null || photos.length === 0) return current;
+            return (current + 1) % photos.length;
+        });
+    };
+
+    const closeLightbox = () => {
+        setActivePhotoIndex(null);
+        setTouchStartX(null);
+    };
+
+    const openLightbox = (slotIndex: number) => {
+        if (typeof window !== "undefined" && window.innerWidth >= 1024) return;
+        const photoIndex = photos.findIndex((photo) => photo.slotIndex === slotIndex);
+        if (photoIndex >= 0) {
+            setActivePhotoIndex(photoIndex);
+        }
+    };
+
+    useEffect(() => {
+        if (activePhotoIndex === null) return;
+
+        const originalOverflow = document.body.style.overflow;
+        document.body.style.overflow = "hidden";
+
+        return () => {
+            document.body.style.overflow = originalOverflow;
+        };
+    }, [activePhotoIndex]);
+
+    const activePhoto = activePhotoIndex !== null ? photos[activePhotoIndex] : null;
 
     return (
         <main className="min-h-screen bg-base">
@@ -70,12 +121,19 @@ export default function CommunityGalleryPage({
                             }}
                         >
                             {photoUrl && photoUrl !== "#" ? (
-                                <img
-                                    src={photoUrl}
-                                    alt={`${communityName} pre-series photo ${index + 1}`}
-                                    loading="lazy"
-                                    className="h-full w-full object-cover"
-                                />
+                                <button
+                                    type="button"
+                                    onClick={() => openLightbox(index)}
+                                    className="h-full w-full"
+                                    aria-label={`Open photo ${index + 1}`}
+                                >
+                                    <img
+                                        src={photoUrl}
+                                        alt={`${communityName} pre-series photo ${index + 1}`}
+                                        loading="lazy"
+                                        className="h-full w-full object-cover"
+                                    />
+                                </button>
                             ) : (
                                 <div className="flex h-full w-full flex-col items-center justify-center gap-2 text-ink/20">
                                     <FiImage size={28} aria-hidden="true" />
@@ -122,6 +180,70 @@ export default function CommunityGalleryPage({
                     )}
                 </motion.div>
             </section>
+
+            {activePhoto && (
+                <div
+                    className="fixed inset-0 z-50 flex flex-col bg-ink/95 p-4 lg:hidden"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label="Photo viewer"
+                    onTouchStart={(event) => setTouchStartX(event.changedTouches[0]?.clientX ?? null)}
+                    onTouchEnd={(event) => {
+                        const endX = event.changedTouches[0]?.clientX;
+                        if (touchStartX === null || typeof endX !== "number") {
+                            setTouchStartX(null);
+                            return;
+                        }
+
+                        const deltaX = endX - touchStartX;
+                        if (deltaX > 40) {
+                            showPreviousPhoto();
+                        } else if (deltaX < -40) {
+                            showNextPhoto();
+                        }
+
+                        setTouchStartX(null);
+                    }}
+                >
+                    <div className="flex items-center justify-between text-base">
+                        <p className="text-sm font-semibold text-base/85">
+                            {activePhotoIndex! + 1} / {photos.length}
+                        </p>
+                        <button
+                            type="button"
+                            onClick={closeLightbox}
+                            className="rounded-full border border-base/35 px-4 py-2 text-sm font-semibold text-base"
+                        >
+                            Close
+                        </button>
+                    </div>
+
+                    <div className="mt-4 flex flex-1 items-center justify-center overflow-hidden rounded-2xl bg-black/30">
+                        <img
+                            src={activePhoto.url}
+                            alt={`${communityName} pre-series photo ${activePhoto.slotIndex + 1}`}
+                            className="max-h-full w-full object-contain"
+                        />
+                    </div>
+
+                    <div className="mt-4 grid grid-cols-2 gap-3">
+                        <button
+                            type="button"
+                            onClick={showPreviousPhoto}
+                            className="rounded-full border border-base/35 px-4 py-3 text-sm font-semibold text-base"
+                        >
+                            Previous
+                        </button>
+                        <button
+                            type="button"
+                            onClick={showNextPhoto}
+                            className="rounded-full border border-base/35 px-4 py-3 text-sm font-semibold text-base"
+                        >
+                            Next
+                        </button>
+                    </div>
+                </div>
+            )}
         </main>
     );
 }
