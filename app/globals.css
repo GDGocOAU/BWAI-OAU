@@ -86,4 +86,14 @@ layer(base);
     font-family: var(--font-google-sans);
     line-height: 1.4;
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
 }

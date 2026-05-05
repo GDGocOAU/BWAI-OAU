@@ -48,26 +48,26 @@ export default function MainEventSection() {
 		<motion.section id="main-event" className="w-full overflow-x-hidden">
 			{/* Hero Block */}
 			<section
-				className="relative overflow-hidden px-4 pb-14 pt-16 sm:px-6 sm:pt-20 lg:px-8 lg:pb-18 lg:pt-24 bg-cover bg-center bg-no-repeat"
+				className="relative overflow-hidden px-4 pb-20 pt-24 sm:px-6 sm:pb-24 sm:pt-28 lg:px-8 lg:pb-28 lg:pt-36 bg-cover bg-center bg-no-repeat"
 				style={{ backgroundImage: "url('/gdg-hero-background.png')" }}
 			>
 				<motion.div
-					className="mx-auto flex w-full max-w-4xl flex-col items-center text-center"
+					className="mx-auto flex w-full max-w-5xl flex-col items-center text-center"
 					initial={{ opacity: 0, y: 24 }}
 					whileInView={{ opacity: 1, y: 0 }}
 					viewport={{ once: false, amount: 0.4 }}
 					transition={{ duration: 0.6, ease: "easeOut" }}
 				>
-					<motion.p
-						className="font-openSans text-xs font-medium text-black/80 sm:text-sm"
+					{/* <motion.p
+						className="font-openSans text-sm font-semibold tracking-wide text-black/80 sm:text-base"
 						initial={{ opacity: 0, y: 18 }}
 						whileInView={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.65, delay: 0.1 }}
 					>
 						GDG OAU × Build with AI 2026
-					</motion.p>
+					</motion.p> */}
 					<motion.h1
-						className="mt-5 text-5xl font-bold leading-[1.04] text-black sm:text-6xl lg:text-7xl"
+						className="mt-6 text-6xl font-bold leading-[1.02] text-black sm:text-7xl lg:text-8xl"
 						initial={{ opacity: 0, y: 18 }}
 						whileInView={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.65, delay: 0.18 }}
@@ -75,7 +75,7 @@ export default function MainEventSection() {
 						{EVENT_DATES.mainEvent}
 					</motion.h1>
 					<motion.p
-						className="mt-4 max-w-2xl leading-7 text-black/90 sm:text-lg"
+						className="mt-6 max-w-3xl text-lg leading-8 text-black/90 sm:text-xl"
 						initial={{ opacity: 0, y: 18 }}
 						whileInView={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.65, delay: 0.26 }}
@@ -84,7 +84,7 @@ export default function MainEventSection() {
 						<MdLocationPin className="inline" />
 					</motion.p>
 					<motion.p
-						className="mt-2 text-sm text-black/75"
+						className="mt-3 text-base text-black/75 sm:text-lg"
 						initial={{ opacity: 0, y: 18 }}
 						whileInView={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.65, delay: 0.34 }}
@@ -92,7 +92,7 @@ export default function MainEventSection() {
 						Theme: Build. Shift. Scale
 					</motion.p>
 					<motion.div
-						className="mt-8 flex flex-wrap items-center justify-center gap-3"
+						className="mt-10 flex flex-wrap items-center justify-center gap-4"
 						initial={{ opacity: 0, y: 18 }}
 						whileInView={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.65, delay: 0.42 }}
@@ -101,7 +101,13 @@ export default function MainEventSection() {
 							label="Register Now"
 							href="#register"
 							// Kept the button dark to contrast well against the new light background
-							className="bg-black text-white hover:bg-black/90"
+							className="bg-black px-8 py-4 text-white text-base sm:text-lg hover:bg-black/90"
+						/>
+						<BlackPillButton
+							label="Customize Ticket"
+							href="#customize-ticket"
+							// Kept the button dark to contrast well against the new light background
+							className="bg-black px-8 py-4 text-white text-base sm:text-lg hover:bg-black/90"
 						/>
 					</motion.div>
 				</motion.div>
@@ -182,7 +188,10 @@ export default function MainEventSection() {
 			</section>
 
 			{/* Customize Ticket Section */}
-			<section className="px-4 py-16 sm:px-6 lg:px-8 bg-surface/50">
+			<section
+				id="customize-ticket"
+				className="scroll-mt-24 bg-surface/50 px-4 py-16 sm:scroll-mt-28 sm:px-6 lg:px-8"
+			>
 				<div className="mx-auto max-w-6xl">
 					<motion.div
 						className="mb-12 text-center"
