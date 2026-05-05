@@ -17,6 +17,7 @@ import {
 	EVENT_SCHEDULE,
 	EVENT_LOCATION,
 } from "@/lib/config";
+import GhostPillButton from "@/components/GhostPillButton";
 
 export default function MainEventSection() {
 	const [image, setImage] = useState<string | null>(null);
@@ -58,14 +59,14 @@ export default function MainEventSection() {
 					viewport={{ once: false, amount: 0.4 }}
 					transition={{ duration: 0.6, ease: "easeOut" }}
 				>
-					{/* <motion.p
-						className="font-openSans text-sm font-semibold tracking-wide text-black/80 sm:text-base"
+					<motion.p
+						className="font-openSans text-xs font-medium text-ink/65 sm:text-sm"
 						initial={{ opacity: 0, y: 18 }}
 						whileInView={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.65, delay: 0.1 }}
 					>
 						GDG OAU × Build with AI 2026
-					</motion.p> */}
+					</motion.p>
 					<motion.h1
 						className="mt-6 text-6xl font-bold leading-[1.02] text-black sm:text-7xl lg:text-8xl"
 						initial={{ opacity: 0, y: 18 }}
@@ -103,11 +104,11 @@ export default function MainEventSection() {
 							// Kept the button dark to contrast well against the new light background
 							className="bg-black px-8 py-4 text-white text-base sm:text-lg hover:bg-black/90"
 						/>
-						<BlackPillButton
+						<GhostPillButton
 							label="Customize Ticket"
 							href="#customize-ticket"
 							// Kept the button dark to contrast well against the new light background
-							className="bg-black px-8 py-4 text-white text-base sm:text-lg hover:bg-black/90"
+							className="px-8 py-4 text-base sm:text-lg"
 						/>
 					</motion.div>
 				</motion.div>

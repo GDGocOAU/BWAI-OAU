@@ -67,7 +67,7 @@ export const PRESERIES_EVENTS = [
 		location: "Step B, Faculty of Technology Building",
 		format: "Hands-on Workshop • 11:00 AM – 4:00 PM",
 		registrationHref: "#",
-		googlePhotosHref: "#",
+		googlePhotosHref: "https://photos.app.goo.gl/AhnoMnLwKowx7oEo8",
 		accent: "coreGreen",
 		status: "past",
 	},

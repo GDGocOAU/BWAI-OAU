@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "motion/react";
-import { FiArrowUpRight, FiCalendar, FiLayers, FiMapPin } from "react-icons/fi";
+import { FiArrowUpRight, FiBookOpen, FiCalendar, FiLayers, FiMapPin, FiPackage, FiCamera } from "react-icons/fi";
 import PillTag from "@/components/PillTag";
 import { HERO_PILL_TONE_COLORS, type ScheduleEvent } from "@/lib/config";
 
@@ -94,6 +94,32 @@ function resolveHostInfo(event: ScheduleEvent): HostInfo {
     };
 }
 
+function resolveCommunityMeta(event: ScheduleEvent): { slug: string; name: string } {
+    const token = `${event.title} ${event.track} ${event.sessionType}`.toLowerCase();
+
+    if (token.includes("data") || token.includes("ml") || token.includes("insight")) {
+        return { slug: "data-science-ml", name: "Data Science & ML" };
+    }
+
+    if (token.includes("mobile") || token.includes("web") || token.includes("autonomy") || token.includes("agent")) {
+        return { slug: "mobile-web-dev", name: "Mobile & Web Dev" };
+    }
+
+    if (token.includes("game")) {
+        return { slug: "game-development", name: "Game Development" };
+    }
+
+    if (token.includes("quantum") || token.includes("finance")) {
+        return { slug: "quantum-finance", name: "Quantum Finance" };
+    }
+
+    if (token.includes("cloud") || token.includes("security") || token.includes("guardrail") || token.includes("cyber")) {
+        return { slug: "cybersecurity", name: "Cybersecurity" };
+    }
+
+    return { slug: "mobile-web-dev", name: "Mobile & Web Dev" };
+}
+
 export default function PreSeriesTimeline({ events }: PreSeriesTimelineProps) {
     return (
         <div className="relative">
@@ -102,6 +128,9 @@ export default function PreSeriesTimeline({ events }: PreSeriesTimelineProps) {
             <div className="sm:space-y-0">
                 {events.map((event, index) => {
                     const host = resolveHostInfo(event);
+                    const community = resolveCommunityMeta(event);
+                    const isExternal = event.ticketHref.startsWith("http");
+                    const isPast = new Date(event.date).getTime() < Date.now();
 
                     return (
                         <motion.article
@@ -180,17 +209,43 @@ export default function PreSeriesTimeline({ events }: PreSeriesTimelineProps) {
                                     </div>
 
                                     <div className="mt-6">
-                                        <Link
-                                            href={event.ticketHref}
-                                            target={event.ticketHref.startsWith("http") ? "_blank" : undefined}
-                                            rel={event.ticketHref.startsWith("http") ? "noreferrer" : undefined}
-                                            className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold transition-all duration-200 hover:-translate-y-0.5 ${host.ticket}`}
-                                        >
-                                            <span>Register for This Session</span>
-                                            <span className={`inline-flex h-6 w-6 items-center justify-center rounded-full ${host.ticketIcon}`} aria-hidden="true">
-                                                <FiArrowUpRight size={14} />
-                                            </span>
-                                        </Link>
+                                        {isPast ? (
+                                            <div className="flex flex-wrap gap-2">
+                                                <Link
+                                                    href={`/pre-series/${community.slug}/blog`}
+                                                    className="inline-flex items-center gap-1.5 rounded-full border border-ink/15 bg-surface px-4 py-2 text-xs font-semibold text-ink transition-all duration-200 hover:-translate-y-0.5 hover:border-ink/30 hover:bg-white"
+                                                >
+                                                    <FiBookOpen size={12} aria-hidden="true" />
+                                                    Blog
+                                                </Link>
+                                                <Link
+                                                    href={`/what-was-built?community=${encodeURIComponent(community.name)}`}
+                                                    className="inline-flex items-center gap-1.5 rounded-full border border-ink/15 bg-surface px-4 py-2 text-xs font-semibold text-ink transition-all duration-200 hover:-translate-y-0.5 hover:border-ink/30 hover:bg-white"
+                                                >
+                                                    <FiPackage size={12} aria-hidden="true" />
+                                                    Projects
+                                                </Link>
+                                                <Link
+                                                    href={`/pre-series/${community.slug}/gallery`}
+                                                    className="inline-flex items-center gap-1.5 rounded-full border border-ink/15 bg-surface px-4 py-2 text-xs font-semibold text-ink transition-all duration-200 hover:-translate-y-0.5 hover:border-ink/30 hover:bg-white"
+                                                >
+                                                    <FiCamera size={12} aria-hidden="true" />
+                                                    Gallery
+                                                </Link>
+                                            </div>
+                                        ) : (
+                                            <Link
+                                                href={event.ticketHref}
+                                                target={isExternal ? "_blank" : undefined}
+                                                rel={isExternal ? "noreferrer" : undefined}
+                                                className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold transition-all duration-200 hover:-translate-y-0.5 ${host.ticket}`}
+                                            >
+                                                <span>Register for This Session</span>
+                                                <span className={`inline-flex h-6 w-6 items-center justify-center rounded-full ${host.ticketIcon}`} aria-hidden="true">
+                                                    <FiArrowUpRight size={14} />
+                                                </span>
+                                            </Link>
+                                        )}
                                     </div>
                                 </div>
                             </div>
