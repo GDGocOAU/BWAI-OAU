@@ -9,7 +9,7 @@ export const COMMUNITIES = [
 	"Cloud",
 	"Cybersecurity",
 	"Game Development",
-	"Quantum Finance",
+	"Quantitative Finance",
 ];
 
 export const NAV_LINKS = [
@@ -41,7 +41,7 @@ export const HERO_PILLS = [
 	{ label: "Cloud", tone: "surface" },
 	{ label: "Cybersecurity", tone: "surface" },
 	{ label: "Game Development", tone: "coreYellow" },
-	{ label: "Quantum Finance", tone: "coreRed" },
+	{ label: "Quantitative Finance", tone: "coreRed" },
 ] as const;
 
 export const HERO_PILL_TONE_COLORS = {
@@ -72,8 +72,8 @@ export const PRESERIES_EVENTS = [
 		status: "past",
 	},
 	{
-		community: "Quantum Computing",
-		communitySlug: "quantum-finance",
+		community: "Quantitative Finance",
+		communitySlug: "quantitative-finance",
 		title: "From Superpositions to Positions",
 		date: "April 24, 2026",
 		location: "Google Meet (Virtual)",
@@ -124,7 +124,7 @@ export const PRESERIES_EVENTS = [
 // Reverse-lookup: URL slug → display community name
 export const PRESERIES_SLUG_MAP: Record<string, string> = {
 	"mobile-web-dev": "Mobile & Web Dev",
-	"quantum-finance": "Quantum Finance",
+	"quantitative-finance": "Quantitative Finance",
 	"game-development": "Game Development",
 	"cybersecurity": "Cybersecurity",
 	"data-science-ml": "Data Science & ML",
@@ -151,7 +151,7 @@ const webDevPhotoSlots = [
 
 export const PRESERIES_PHOTO_SLOTS: Record<string, string[]> = {
 	"mobile-web-dev": webDevPhotoSlots,
-	"quantum-finance": makePhotoSlots(),
+	"quantitative-finance": makePhotoSlots(),
 	"game-development": makePhotoSlots(),
 	"cybersecurity": makePhotoSlots(),
 	"data-science-ml": makePhotoSlots(),
