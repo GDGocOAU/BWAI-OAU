@@ -16,9 +16,10 @@ type ProjectSummary = {
 
 type Props = {
   projects: ProjectSummary[];
+  initialHasVoted: boolean;
 };
 
-export default function PeoplesChoiceClient({ projects }: Props) {
+export default function PeoplesChoiceClient({ projects, initialHasVoted }: Props) {
   const DEVICE_ID_STORAGE_KEY = "bwai-device-id";
   const [deviceId, setDeviceId] = useState<string>("");
 
@@ -28,7 +29,7 @@ export default function PeoplesChoiceClient({ projects }: Props) {
   const [atfProof, setAtfProof] = useState<File | null>(null);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const [success, setSuccess] = useState(initialHasVoted);
 
   const AWARD_LOTTIE_URL = "https://assets10.lottiefiles.com/packages/lf20_touohxv0.json";
   const [awardAnimation, setAwardAnimation] = useState<object | null>(null);
@@ -61,6 +62,11 @@ export default function PeoplesChoiceClient({ projects }: Props) {
       window.localStorage.setItem(DEVICE_ID_STORAGE_KEY, generatedDeviceId);
     }
     setDeviceId(generatedDeviceId);
+    
+    const localHasVoted = window.localStorage.getItem("bwai-has-voted");
+    if (localHasVoted === "true") {
+      setSuccess(true);
+    }
   }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, setter: React.Dispatch<React.SetStateAction<File | null>>) => {
@@ -108,8 +114,11 @@ export default function PeoplesChoiceClient({ projects }: Props) {
         throw new Error(data.error || "Failed to submit vote");
       }
 
-      setSuccess(true);
-      toast.success("Vote submitted successfully!");
+      if (res.ok) {
+        toast.success("Vote submitted successfully!");
+        setSuccess(true);
+        window.localStorage.setItem("bwai-has-voted", "true");
+      }
     } catch (err: any) {
       toast.error(err.message || "An unexpected error occurred.");
     } finally {

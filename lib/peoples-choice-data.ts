@@ -40,3 +40,35 @@ export async function getProjectsForVoting() {
   });
   return projects;
 }
+
+export async function getVotingResultsAdmin() {
+  const projects = await prisma.whatWasBuiltProject.findMany({
+    orderBy: [{ displayOrder: "asc" }, { id: "asc" }],
+    include: {
+      peoplesChoiceVotes: {
+        orderBy: { createdAt: "desc" },
+      },
+    },
+  });
+
+  return projects.map((p) => ({
+    id: p.id,
+    name: p.name,
+    community: p.community,
+    totalVotes: p.peoplesChoiceVotes.length,
+    votes: p.peoplesChoiceVotes.map((v) => ({
+      id: v.id,
+      deviceId: v.deviceId,
+      linkedInProof: v.linkedInProof,
+      twitterProof: v.twitterProof,
+      atfProof: v.atfProof,
+      createdAt: v.createdAt.toISOString(),
+    })),
+  }));
+}
+
+export async function deletePeoplesChoiceVote(voteId: number): Promise<void> {
+  await prisma.peoplesChoiceVote.delete({
+    where: { id: voteId },
+  });
+}

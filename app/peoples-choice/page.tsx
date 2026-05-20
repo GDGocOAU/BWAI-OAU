@@ -1,5 +1,6 @@
-import { getProjectsForVoting } from "@/lib/peoples-choice-data";
+import { getProjectsForVoting, hasDeviceVoted } from "@/lib/peoples-choice-data";
 import PeoplesChoiceClient from "./PeoplesChoiceClient";
+import { cookies } from "next/headers";
 
 export const dynamic = "force-dynamic";
 export const metadata = {
@@ -9,5 +10,14 @@ export const metadata = {
 
 export default async function PeoplesChoicePage() {
   const projects = await getProjectsForVoting();
-  return <PeoplesChoiceClient projects={projects} />;
+  
+  const cookieStore = await cookies();
+  const deviceId = cookieStore.get("bwai_peoples_choice_device_id")?.value;
+  
+  let hasVoted = false;
+  if (deviceId) {
+    hasVoted = await hasDeviceVoted(deviceId);
+  }
+
+  return <PeoplesChoiceClient projects={projects} initialHasVoted={hasVoted} />;
 }

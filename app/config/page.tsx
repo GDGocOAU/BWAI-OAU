@@ -119,6 +119,18 @@ export default function ConfigHomePage() {
               Open editor
             </span>
           </Link>
+
+          <Link
+            href="/config/peoples-choice"
+            className="group rounded-2xl bg-surface p-6 transition-colors duration-200 hover:bg-[#e8e8e8]"
+          >
+            <p className="text-xs font-openSans uppercase tracking-[0.12em] text-ink/55">Admin Route</p>
+            <h2 className="mt-2 text-xl font-bold text-ink">People's Choice</h2>
+            <p className="mt-2 text-sm text-ink/65">View voting results, aggregate vote counts, and verify user screenshots.</p>
+            <span className="mt-5 inline-flex items-center text-sm font-semibold text-coreBlue">
+              Open dashboard
+            </span>
+          </Link>
         </div>
       </div>
     </main>
