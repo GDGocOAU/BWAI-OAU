@@ -35,6 +35,7 @@ model WhatWasBuiltProject {
   configId      Int                    @default(1)
   config        WhatWasBuiltConfig     @relation(fields: [configId], references: [id], onDelete: Cascade)
   likesByDevice WhatWasBuiltProjectLike[]
+  peoplesChoiceVotes PeoplesChoiceVote[]
 
   @@index([configId, displayOrder])
 }
@@ -74,4 +75,18 @@ model ScheduleEvent {
   config      ScheduleConfig @relation(fields: [configId], references: [id], onDelete: Cascade)
 
   @@index([configId, displayOrder])
+}
+
+model PeoplesChoiceVote {
+  id              Int                 @id @default(autoincrement())
+  projectId       Int
+  deviceId        String              @unique
+  linkedInProof   String
+  twitterProof    String
+  atfProof        String
+  createdAt       DateTime            @default(now())
+  
+  project         WhatWasBuiltProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
 }

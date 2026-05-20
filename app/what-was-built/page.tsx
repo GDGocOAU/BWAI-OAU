@@ -29,6 +29,14 @@ function WhatWasBuiltPage() {
         [projects],
     );
 
+    const communityCounts = useMemo(() => {
+        const counts: Record<string, number> = { All: projects.length };
+        projects.forEach((project) => {
+            counts[project.community] = (counts[project.community] || 0) + 1;
+        });
+        return counts;
+    }, [projects]);
+
     const filteredProjects = useMemo(
         () =>
             activeCommunity === "All"
@@ -255,12 +263,18 @@ function WhatWasBuiltPage() {
                                             ease: "easeOut",
                                             delay: 0.2 + index * 0.05,
                                         }}
-                                        className={`cursor-pointer inline-flex shrink-0 items-center justify-center rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink/30 ${activeCommunity === community
+                                        className={`cursor-pointer inline-flex shrink-0 items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink/30 ${activeCommunity === community
                                                 ? "bg-ink text-white"
                                                 : "border border-ink/20 bg-white text-ink hover:border-ink/40 hover:bg-ink/5"
                                             }`}
                                     >
-                                        {community}
+                                        <span>{community}</span>
+                                        <span className={`inline-flex items-center justify-center rounded-full px-2 py-0.5 text-xs font-bold transition-all duration-200 ${activeCommunity === community
+                                                ? "bg-white/20 text-white/90"
+                                                : "bg-ink/10 text-ink/60"
+                                            }`}>
+                                            {communityCounts[community] || 0}
+                                        </span>
                                     </motion.button>
                                 ))}
                             </div>
@@ -337,7 +351,7 @@ function WhatWasBuiltPage() {
                 </div>
             </section>
 
-            {
+            {/* {
                 !isLoadingProjects && liveCount > 0 && (
                     <div className="pb-20 text-center">
                         <BlackPillButton
@@ -346,7 +360,7 @@ function WhatWasBuiltPage() {
                         />
                     </div>
                 )
-            }
+            } */}
         </div>
     );
 }
