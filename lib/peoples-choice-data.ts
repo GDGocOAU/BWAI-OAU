@@ -4,9 +4,6 @@ import { prisma } from "@/lib/prisma";
 export type SubmitPeoplesChoicePayload = {
   projectId: number;
   email: string;
-  linkedInProof: string;
-  twitterProof: string;
-  atfProof: string;
 };
 
 export async function hasEmailVoted(email: string): Promise<boolean> {
@@ -27,9 +24,6 @@ export async function submitPeoplesChoiceVote(data: SubmitPeoplesChoicePayload):
       data: {
         projectId: data.projectId,
         email: data.email,
-        linkedInProof: data.linkedInProof,
-        twitterProof: data.twitterProof,
-        atfProof: data.atfProof,
       },
     });
   } catch (error) {
@@ -47,9 +41,24 @@ export async function getProjectsForVoting() {
         name: true,
         description: true,
         community: true,
+        tags: true,
+        techTags: true,
+        demoHref: true,
+        _count: {
+          select: { peoplesChoiceVotes: true },
+        },
       },
     });
-    return projects;
+    return projects.map((p) => ({
+      id: p.id,
+      name: p.name,
+      description: p.description,
+      community: p.community,
+      tags: p.tags,
+      techTags: p.techTags,
+      demoHref: p.demoHref,
+      voteCount: p._count.peoplesChoiceVotes,
+    }));
   } catch (error) {
     console.error("Error fetching projects for voting:", error);
     return [];
@@ -75,9 +84,6 @@ export async function getVotingResultsAdmin() {
       votes: p.peoplesChoiceVotes.map((v) => ({
         id: v.id,
         email: v.email,
-        linkedInProof: v.linkedInProof,
-        twitterProof: v.twitterProof,
-        atfProof: v.atfProof,
         createdAt: v.createdAt.toISOString(),
       })),
     }));

@@ -10,9 +10,6 @@ import { FiExternalLink, FiTrash2 } from "react-icons/fi";
 type Vote = {
   id: number;
   email: string;
-  linkedInProof: string;
-  twitterProof: string;
-  atfProof: string;
   createdAt: string;
 };
 
@@ -255,26 +252,6 @@ export default function PeoplesChoiceAdminPage() {
                                   >
                                     <FiTrash2 size={16} />
                                   </button>
-                                </div>
-                                <div className="mt-4 grid grid-cols-3 gap-2 sm:gap-3">
-                                  <div>
-                                    <p className="mb-1 truncate text-[9px] font-bold uppercase tracking-wider text-[#0077b5]">LinkedIn</p>
-                                    <a href={vote.linkedInProof} target="_blank" rel="noopener noreferrer" className="block overflow-hidden rounded-lg border border-ink/10 bg-surface transition-colors hover:border-[#0077b5]/50">
-                                      <img src={vote.linkedInProof} alt="LinkedIn" className="h-20 w-full object-cover" loading="lazy" />
-                                    </a>
-                                  </div>
-                                  <div>
-                                    <p className="mb-1 truncate text-[9px] font-bold uppercase tracking-wider text-black">Twitter/X</p>
-                                    <a href={vote.twitterProof} target="_blank" rel="noopener noreferrer" className="block overflow-hidden rounded-lg border border-ink/10 bg-surface transition-colors hover:border-black/50">
-                                      <img src={vote.twitterProof} alt="Twitter" className="h-20 w-full object-cover" loading="lazy" />
-                                    </a>
-                                  </div>
-                                  <div>
-                                    <p className="mb-1 truncate text-[9px] font-bold uppercase tracking-wider text-coreRed">ATF</p>
-                                    <a href={vote.atfProof} target="_blank" rel="noopener noreferrer" className="block overflow-hidden rounded-lg border border-ink/10 bg-surface transition-colors hover:border-coreRed/50">
-                                      <img src={vote.atfProof} alt="ATF" className="h-20 w-full object-cover" loading="lazy" />
-                                    </a>
-                                  </div>
                                 </div>
                               </div>
                             ))}
