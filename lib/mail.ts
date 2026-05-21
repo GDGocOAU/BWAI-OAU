@@ -1,27 +1,15 @@
 import { Resend } from 'resend';
 
-// We fallback to a mock key so the app doesn't crash if the env var is missing during local dev
 const resend = new Resend(process.env.RESEND_API_KEY || "re_dummy_key_123");
 
 export async function sendMagicLink(email: string, token: string) {
-  // Use Vercel URL or fallback to localhost port 3001 (based on your package.json dev script)
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3001";
     
   const magicLink = `${baseUrl}/peoples-choice?token=${token}`;
 
-  // If there's no real Resend API Key configured yet, just log the magic link to the console.
-  if (!process.env.RESEND_API_KEY) {
-    console.log("==================================================");
-    console.log(`[MOCK EMAIL] To: ${email}`);
-    console.log(`[MOCK EMAIL] Subject: Your Magic Link to Vote!`);
-    console.log(`[MOCK EMAIL] Magic Link: ${magicLink}`);
-    console.log("==================================================");
-    return { success: true, id: "mock_id" };
-  }
-
   try {
     const data = await resend.emails.send({
-      from: 'Build With AI OAU <hello@resend.dev>', // You should change this to your verified domain once added to Resend
+      from: 'Build With AI OAU <awards@bwaioau.site>',
       to: [email],
       subject: 'Your Magic Link to Vote! - Build With AI OAU',
       html: `

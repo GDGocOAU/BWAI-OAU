@@ -11,7 +11,14 @@ export const metadata = {
 export default async function PeoplesChoicePage(
   { searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }
 ) {
-  const projects = await getProjectsForVoting();
+  let projects: Awaited<ReturnType<typeof getProjectsForVoting>> = [];
+  
+  try {
+    projects = await getProjectsForVoting();
+  } catch (error) {
+    console.error("Failed to fetch projects for voting:", error);
+    // Continue with empty projects array — the client will show an empty state
+  }
   
   const params = await searchParams;
   const token = typeof params.token === "string" ? params.token : null;
@@ -21,20 +28,25 @@ export default async function PeoplesChoicePage(
   let email = "";
 
   if (token) {
-    const magicLink = await prisma.magicLinkToken.findUnique({
-      where: { token },
-    });
-
-    if (magicLink && magicLink.expiresAt > new Date()) {
-      isTokenValid = true;
-      email = magicLink.email;
-      
-      const existingVote = await prisma.peoplesChoiceVote.findUnique({
-        where: { email },
+    try {
+      const magicLink = await prisma.magicLinkToken.findUnique({
+        where: { token },
       });
-      if (existingVote) {
-        hasVoted = true;
+
+      if (magicLink && magicLink.expiresAt > new Date()) {
+        isTokenValid = true;
+        email = magicLink.email;
+        
+        const existingVote = await prisma.peoplesChoiceVote.findUnique({
+          where: { email },
+        });
+        if (existingVote) {
+          hasVoted = true;
+        }
       }
+    } catch (error) {
+      console.error("Failed to validate magic link token:", error);
+      // Token validation failed — treat as invalid token, user will see the email form
     }
   }
 

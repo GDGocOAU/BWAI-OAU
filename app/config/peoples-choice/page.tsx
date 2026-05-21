@@ -245,7 +245,10 @@ export default function PeoplesChoiceAdminPage() {
                                   </div>
                                   <button
                                     type="button"
-                                    onClick={() => deleteVote(vote.id, project.id)}
+                                    onClick={() => {
+                                      const confirmed = window.confirm("Are you sure you want to delete this vote? This action cannot be undone.");
+                                      if (confirmed) deleteVote(vote.id, project.id);
+                                    }}
                                     disabled={deletingVoteId === vote.id}
                                     title="Invalidate/Delete Vote"
                                     className="p-1.5 text-ink/30 hover:text-coreRed transition-colors disabled:opacity-50"
