@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { uploadToCloudinary } from "@/lib/cloudinary";
-import { hasDeviceVoted, submitPeoplesChoiceVote } from "@/lib/peoples-choice-data";
-import { cookies } from "next/headers";
+import { prisma } from "@/lib/prisma";
 
 export async function POST(request: Request) {
   try {
@@ -9,23 +8,34 @@ export async function POST(request: Request) {
     
     const projectIdStr = formData.get("projectId")?.toString();
     const projectId = parseInt(projectIdStr || "", 10);
-    const clientDeviceId = formData.get("deviceId")?.toString()?.trim();
+    const token = formData.get("token")?.toString()?.trim();
     
-    if (isNaN(projectId) || !clientDeviceId) {
+    if (isNaN(projectId) || !token) {
       return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
     }
 
-    // Enhance device tracking by checking HTTP-only cookie as well
-    const cookieStore = await cookies();
-    const cookieDeviceId = cookieStore.get("bwai_peoples_choice_device_id")?.value;
-    
-    // Use cookie device ID if it exists, otherwise use client provided one
-    const effectiveDeviceId = cookieDeviceId || clientDeviceId;
+    // Validate the magic link token
+    const magicLink = await prisma.magicLinkToken.findUnique({
+      where: { token },
+    });
 
-    // The database is our source of truth
-    const alreadyVoted = await hasDeviceVoted(effectiveDeviceId);
-    if (alreadyVoted) {
-      return NextResponse.json({ error: "This device has already voted." }, { status: 403 });
+    if (!magicLink) {
+      return NextResponse.json({ error: "Invalid or expired voting link." }, { status: 403 });
+    }
+
+    if (magicLink.expiresAt < new Date()) {
+      return NextResponse.json({ error: "This voting link has expired. Please request a new one." }, { status: 403 });
+    }
+
+    // Check if email already voted just to be doubly sure
+    const existingVote = await prisma.peoplesChoiceVote.findUnique({
+      where: { email: magicLink.email },
+    });
+
+    if (existingVote) {
+      // If they voted, still delete the token so it can't be reused
+      await prisma.magicLinkToken.delete({ where: { token } });
+      return NextResponse.json({ error: "This account has already cast a vote." }, { status: 403 });
     }
 
     const linkedInFile = formData.get("linkedInProof") as File | null;
@@ -60,27 +70,23 @@ export async function POST(request: Request) {
       uploadToCloudinary(await toBuffer(atfFile), atfFile.type),
     ]);
 
-    // Save vote to DB
-    await submitPeoplesChoiceVote({
-      projectId,
-      deviceId: effectiveDeviceId,
-      linkedInProof: linkedInUrl,
-      twitterProof: twitterUrl,
-      atfProof: atfUrl,
-    });
+    // Save vote to DB using a transaction to ensure token is deleted
+    await prisma.$transaction([
+      prisma.peoplesChoiceVote.create({
+        data: {
+          projectId,
+          email: magicLink.email,
+          linkedInProof: linkedInUrl,
+          twitterProof: twitterUrl,
+          atfProof: atfUrl,
+        },
+      }),
+      prisma.magicLinkToken.delete({
+        where: { token },
+      }),
+    ]);
 
-    const response = NextResponse.json({ success: true }, { status: 201 });
-    
-    // Set an HttpOnly cookie to enforce single voting even if local storage is cleared
-    response.cookies.set({
-      name: 'bwai_peoples_choice_device_id',
-      value: effectiveDeviceId,
-      httpOnly: true,
-      path: '/',
-      maxAge: 60 * 60 * 24 * 365, // 1 year
-    });
-
-    return response;
+    return NextResponse.json({ success: true }, { status: 201 });
   } catch (error) {
     console.error("People's Choice Error:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });

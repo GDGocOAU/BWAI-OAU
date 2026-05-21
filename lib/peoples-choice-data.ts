@@ -3,15 +3,15 @@ import { prisma } from "@/lib/prisma";
 
 export type SubmitPeoplesChoicePayload = {
   projectId: number;
-  deviceId: string;
+  email: string;
   linkedInProof: string;
   twitterProof: string;
   atfProof: string;
 };
 
-export async function hasDeviceVoted(deviceId: string): Promise<boolean> {
+export async function hasEmailVoted(email: string): Promise<boolean> {
   const existingVote = await prisma.peoplesChoiceVote.findUnique({
-    where: { deviceId },
+    where: { email },
   });
   return !!existingVote;
 }
@@ -20,7 +20,7 @@ export async function submitPeoplesChoiceVote(data: SubmitPeoplesChoicePayload):
   await prisma.peoplesChoiceVote.create({
     data: {
       projectId: data.projectId,
-      deviceId: data.deviceId,
+      email: data.email,
       linkedInProof: data.linkedInProof,
       twitterProof: data.twitterProof,
       atfProof: data.atfProof,
@@ -58,7 +58,7 @@ export async function getVotingResultsAdmin() {
     totalVotes: p.peoplesChoiceVotes.length,
     votes: p.peoplesChoiceVotes.map((v) => ({
       id: v.id,
-      deviceId: v.deviceId,
+      email: v.email,
       linkedInProof: v.linkedInProof,
       twitterProof: v.twitterProof,
       atfProof: v.atfProof,

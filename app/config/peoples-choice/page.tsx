@@ -9,7 +9,7 @@ import { FiExternalLink, FiTrash2 } from "react-icons/fi";
 
 type Vote = {
   id: number;
-  deviceId: string;
+  email: string;
   linkedInProof: string;
   twitterProof: string;
   atfProof: string;
@@ -239,8 +239,8 @@ export default function PeoplesChoiceAdminPage() {
                               <div key={vote.id} className="rounded-xl border border-ink/10 bg-white p-4">
                                 <div className="mb-3 flex items-start justify-between">
                                   <div>
-                                    <p className="text-xs text-ink/40">Voter Device ID</p>
-                                    <p className="truncate text-xs font-mono text-ink/70" title={vote.deviceId}>{vote.deviceId.substring(0, 16)}...</p>
+                                    <p className="text-xs text-ink/40">Voter Email</p>
+                                    <p className="truncate text-xs font-medium text-ink/80" title={vote.email}>{vote.email}</p>
                                     <p className="mt-1 text-[10px] text-ink/40">{new Date(vote.createdAt).toLocaleString()}</p>
                                   </div>
                                   <button

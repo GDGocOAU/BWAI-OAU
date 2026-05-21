@@ -80,7 +80,7 @@ model ScheduleEvent {
 model PeoplesChoiceVote {
   id              Int                 @id @default(autoincrement())
   projectId       Int
-  deviceId        String              @unique
+  email           String              @unique
   linkedInProof   String
   twitterProof    String
   atfProof        String
@@ -89,4 +89,12 @@ model PeoplesChoiceVote {
   project         WhatWasBuiltProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   @@index([projectId])
+}
+
+model MagicLinkToken {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
 }
