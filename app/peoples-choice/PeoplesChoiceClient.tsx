@@ -146,7 +146,7 @@ export default function PeoplesChoiceClient({ projects, initialHasVoted, token, 
 
   const linkedInLink = SOCIAL_LINKS.find((l) => l.label === "LinkedIn")?.href || "#";
   const twitterLink = SOCIAL_LINKS.find((l) => l.label === "Twitter/X")?.href || "#";
-  const atfLink = "https://example.com/join-atf";
+  const atfLink = "https://www.atfchallenge.org/apply?channel=WDVBKMUJ";
 
   // 1. SUCCESS / ALREADY VOTED STATE
   if (success) {
@@ -175,80 +175,80 @@ export default function PeoplesChoiceClient({ projects, initialHasVoted, token, 
   }
 
   // 2. REQUEST MAGIC LINK STATE (No valid token)
-  if (!token) {
-    return (
-      <div className="min-h-screen bg-surface pb-20">
-        <Toaster position="bottom-center" />
-        <section className="px-4 pb-10 pt-6 sm:px-6 lg:px-8">
-          <div className="mx-auto w-full max-w-3xl text-center">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut" }} className="flex flex-col items-center">
-              {awardAnimation ? (
-                <div className="h-40 w-40 sm:h-52 sm:w-52">
-                  <Lottie animationData={awardAnimation} loop autoplay />
-                </div>
-              ) : (
-                <div className="flex h-40 w-40 items-center justify-center text-7xl sm:h-52 sm:w-52">🏆</div>
-              )}
-              <h1 className="mt-4 text-5xl font-bold leading-[1.1] text-ink sm:text-6xl">
-                People&apos;s Choice Award
-              </h1>
-              <p className="mx-auto mt-6 max-w-2xl text-[1.1rem] leading-relaxed text-ink/70">
-                Vote for the project that wowed you the most! Enter your email to receive a secure, single-use voting link.
-              </p>
-            </motion.div>
-          </div>
-        </section>
+  // if (!token) {
+  //   return (
+  //     <div className="min-h-screen bg-surface pb-20">
+  //       <Toaster position="bottom-center" />
+  //       <section className="px-4 pb-10 pt-6 sm:px-6 lg:px-8">
+  //         <div className="mx-auto w-full max-w-3xl text-center">
+  //           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut" }} className="flex flex-col items-center">
+  //             {awardAnimation ? (
+  //               <div className="h-40 w-40 sm:h-52 sm:w-52">
+  //                 <Lottie animationData={awardAnimation} loop autoplay />
+  //               </div>
+  //             ) : (
+  //               <div className="flex h-40 w-40 items-center justify-center text-7xl sm:h-52 sm:w-52">🏆</div>
+  //             )}
+  //             <h1 className="mt-4 text-5xl font-bold leading-[1.1] text-ink sm:text-6xl">
+  //               People&apos;s Choice Award
+  //             </h1>
+  //             <p className="mx-auto mt-6 max-w-2xl text-[1.1rem] leading-relaxed text-ink/70">
+  //               Vote for the project that wowed you the most! Enter your email to receive a secure, single-use voting link.
+  //             </p>
+  //           </motion.div>
+  //         </div>
+  //       </section>
 
-        <section className="px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto w-full max-w-md">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}>
-              <div className="rounded-3xl border border-ink/10 bg-white p-6 sm:p-8">
-                <h3 className="mb-2 text-2xl font-bold text-ink">Get Your Magic Link</h3>
-                <p className="mb-6 text-sm text-ink/60">To prevent spam, we&apos;ll send you a one-time voting link via email. No passwords, no accounts.</p>
+  //       <section className="px-4 sm:px-6 lg:px-8">
+  //         <div className="mx-auto w-full max-w-md">
+  //           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}>
+  //             <div className="rounded-3xl border border-ink/10 bg-white p-6 sm:p-8">
+  //               <h3 className="mb-2 text-2xl font-bold text-ink">Get Your Magic Link</h3>
+  //               <p className="mb-6 text-sm text-ink/60">To prevent spam, we&apos;ll send you a one-time voting link via email. No passwords, no accounts.</p>
 
-                {linkSent ? (
-                  <div className="rounded-2xl border border-coreGreen/20 bg-coreGreen/10 p-6 text-center">
-                    <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-coreGreen/20 text-2xl">✉️</div>
-                    <p className="text-base font-bold text-coreGreen">Magic link sent!</p>
-                    <p className="mt-2 text-sm text-ink/70">Check your inbox and click the link to cast your vote. You can close this window.</p>
-                  </div>
-                ) : (
-                  <form onSubmit={handleRequestLink} className="space-y-5 flex flex-col gap-4">
-                    <div>
-                      <label htmlFor="email" className="mb-2 block text-sm font-bold text-ink">Email Address</label>
-                      <input
-                        id="email"
-                        type="email"
-                        required
-                        value={emailInput}
-                        onChange={(e) => setEmailInput(e.target.value)}
-                        className="w-full rounded-xl border border-ink/10 bg-surface/50 px-4 py-3 text-sm text-ink outline-none transition-all focus:border-ink/30 focus:ring-1 focus:ring-ink/10"
-                        placeholder="hello@example.com"
-                      />
-                    </div>
-                    <button
-                      type="submit"
-                      disabled={isRequestingLink}
-                      className="inline-flex w-full items-center justify-center rounded-full bg-ink px-8 py-4 text-base font-bold text-white transition-all hover:bg-ink/80 disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      {isRequestingLink ? (
-                        <span className="flex items-center gap-2">
-                          <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-                          Sending...
-                        </span>
-                      ) : (
-                        "Send Magic Link"
-                      )}
-                    </button>
-                  </form>
-                )}
-              </div>
-            </motion.div>
-          </div>
-        </section>
-      </div>
-    );
-  }
+  //               {linkSent ? (
+  //                 <div className="rounded-2xl border border-coreGreen/20 bg-coreGreen/10 p-6 text-center">
+  //                   <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-coreGreen/20 text-2xl">✉️</div>
+  //                   <p className="text-base font-bold text-coreGreen">Magic link sent!</p>
+  //                   <p className="mt-2 text-sm text-ink/70">Check your inbox and click the link to cast your vote. You can close this window.</p>
+  //                 </div>
+  //               ) : (
+  //                 <form onSubmit={handleRequestLink} className="space-y-5 flex flex-col gap-4">
+  //                   <div>
+  //                     <label htmlFor="email" className="mb-2 block text-sm font-bold text-ink">Email Address</label>
+  //                     <input
+  //                       id="email"
+  //                       type="email"
+  //                       required
+  //                       value={emailInput}
+  //                       onChange={(e) => setEmailInput(e.target.value)}
+  //                       className="w-full rounded-xl border border-ink/10 bg-surface/50 px-4 py-3 text-sm text-ink outline-none transition-all focus:border-ink/30 focus:ring-1 focus:ring-ink/10"
+  //                       placeholder="hello@example.com"
+  //                     />
+  //                   </div>
+  //                   <button
+  //                     type="submit"
+  //                     disabled={isRequestingLink}
+  //                     className="inline-flex w-full items-center justify-center rounded-full bg-ink px-8 py-4 text-base font-bold text-white transition-all hover:bg-ink/80 disabled:opacity-50 disabled:cursor-not-allowed"
+  //                   >
+  //                     {isRequestingLink ? (
+  //                       <span className="flex items-center gap-2">
+  //                         <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+  //                         Sending...
+  //                       </span>
+  //                     ) : (
+  //                       "Send Magic Link"
+  //                     )}
+  //                   </button>
+  //                 </form>
+  //               )}
+  //             </div>
+  //           </motion.div>
+  //         </div>
+  //       </section>
+  //     </div>
+  //   );
+  // }
 
   // 3. VOTING FORM STATE (Valid Token)
   return (
