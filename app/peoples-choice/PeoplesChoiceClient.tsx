@@ -9,6 +9,7 @@ import { FaLinkedinIn, FaXTwitter } from "react-icons/fa6";
 import { MdRocketLaunch } from "react-icons/md";
 import dynamic from "next/dynamic";
 import { motion } from "motion/react";
+import Link from "next/link";
 
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 
@@ -59,12 +60,7 @@ export default function PeoplesChoiceClient({ projects, initialHasVoted, token, 
     return () => { mounted = false; };
   }, []);
 
-  useEffect(() => {
-    const localHasVoted = window.localStorage.getItem("bwai-has-voted");
-    if (localHasVoted === "true") {
-      setSuccess(true);
-    }
-  }, []);
+
 
   const handleRequestLink = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -112,7 +108,6 @@ export default function PeoplesChoiceClient({ projects, initialHasVoted, token, 
 
       toast.success("Vote submitted successfully!");
       setSuccess(true);
-      window.localStorage.setItem("bwai-has-voted", "true");
       window.history.replaceState({}, document.title, window.location.pathname);
     } catch (err: any) {
       toast.error(err.message || "An unexpected error occurred.");
@@ -144,6 +139,11 @@ export default function PeoplesChoiceClient({ projects, initialHasVoted, token, 
               <p className="mx-auto mt-6 max-w-2xl text-[1.1rem] leading-relaxed text-ink/70">
                 Your vote has been recorded. Stay tuned for the final announcement of the People&apos;s Choice Award!
               </p>
+              <div className="mt-8">
+                <Link href="/peoples-choice/leaderboard" className="inline-flex items-center justify-center rounded-full border border-ink/20 bg-white px-6 py-3 text-sm font-bold text-ink transition-all hover:bg-ink/5">
+                  View Leaderboard
+                </Link>
+              </div>
             </motion.div>
           </div>
         </section>
@@ -172,6 +172,11 @@ export default function PeoplesChoiceClient({ projects, initialHasVoted, token, 
               <p className="mx-auto mt-6 max-w-2xl text-[1.1rem] leading-relaxed text-ink/70">
                 Vote for the project that wowed you the most! Enter your email to receive a secure, single-use voting link.
               </p>
+              <div className="mt-8">
+                <Link href="/peoples-choice/leaderboard" className="inline-flex items-center justify-center rounded-full border border-ink/20 bg-white px-6 py-3 text-sm font-bold text-ink transition-all hover:bg-ink/5">
+                  View Leaderboard
+                </Link>
+              </div>
             </motion.div>
           </div>
         </section>
@@ -250,6 +255,11 @@ export default function PeoplesChoiceClient({ projects, initialHasVoted, token, 
             <p className="mt-3 rounded-full bg-ink/5 px-4 py-2 text-sm font-medium text-ink/70">
               Voting as: <strong className="text-ink">{email}</strong>
             </p>
+            <div className="mt-8">
+              <Link href="/peoples-choice/leaderboard" className="inline-flex items-center justify-center rounded-full border border-ink/20 bg-white px-6 py-3 text-sm font-bold text-ink transition-all hover:bg-ink/5">
+                View Leaderboard
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>
