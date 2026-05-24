@@ -87,6 +87,10 @@ async function sendViaGoogle(email: string, token: string) {
 }
 
 // Main function to send magic link email
+/**
+ * Send magic link email via the configured provider (Resend or Google SMTP).
+ * Note: Email should already be canonicalized before calling this function.
+ */
 export async function sendMagicLink(email: string, token: string) {
   const provider = getEmailProvider();
 

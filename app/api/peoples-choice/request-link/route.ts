@@ -1,16 +1,24 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { sendMagicLink } from "@/lib/mail";
+import { getCanonicalEmail } from "@/lib/email-utils";
 
 export async function POST(request: Request) {
   try {
     const { email } = await request.json();
 
-    if (!email || !email.includes("@")) {
+    if (!email) {
       return NextResponse.json({ error: "Please provide a valid email address." }, { status: 400 });
     }
 
-    const normalizedEmail = email.toLowerCase().trim();
+    // Convert to canonical form to prevent variations like john+1@gmail.com, j.o.h.n@gmail.com, etc.
+    const canonicalEmail = getCanonicalEmail(email);
+
+    if (!canonicalEmail) {
+      return NextResponse.json({ error: "Please provide a valid email address." }, { status: 400 });
+    }
+
+    const normalizedEmail = canonicalEmail;
 
     // Check if the email has already voted
     const existingVote = await prisma.peoplesChoiceVote.findUnique({

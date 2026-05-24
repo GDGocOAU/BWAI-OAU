@@ -81,9 +81,6 @@ model PeoplesChoiceVote {
   id              Int                 @id @default(autoincrement())
   projectId       Int
   email           String              @unique
-  linkedInProof   String?
-  twitterProof    String?
-  atfProof        String?
   createdAt       DateTime            @default(now())
   
   project         WhatWasBuiltProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
