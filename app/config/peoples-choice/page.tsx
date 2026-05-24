@@ -11,6 +11,9 @@ type Vote = {
   id: number;
   email: string;
   createdAt: string;
+  linkedinScreenshot?: string | null;
+  twitterScreenshot?: string | null;
+  atfScreenshot?: string | null;
 };
 
 type ProjectResult = {
@@ -252,6 +255,35 @@ export default function PeoplesChoiceAdminPage() {
                                   >
                                     <FiTrash2 size={16} />
                                   </button>
+                                </div>
+                                <div className="mt-3 flex gap-3 overflow-x-auto border-t border-ink/5 pt-3">
+                                  {vote.linkedinScreenshot && (
+                                    <a href={vote.linkedinScreenshot} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-1 group shrink-0">
+                                      <div className="h-12 w-12 overflow-hidden rounded-md border border-ink/10 group-hover:border-coreBlue transition-colors">
+                                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                                        <img src={vote.linkedinScreenshot} alt="LinkedIn Proof" className="h-full w-full object-cover" />
+                                      </div>
+                                      <span className="text-[10px] text-ink/50 font-bold">LinkedIn</span>
+                                    </a>
+                                  )}
+                                  {vote.twitterScreenshot && (
+                                    <a href={vote.twitterScreenshot} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-1 group shrink-0">
+                                      <div className="h-12 w-12 overflow-hidden rounded-md border border-ink/10 group-hover:border-coreBlue transition-colors">
+                                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                                        <img src={vote.twitterScreenshot} alt="Twitter Proof" className="h-full w-full object-cover" />
+                                      </div>
+                                      <span className="text-[10px] text-ink/50 font-bold">Twitter</span>
+                                    </a>
+                                  )}
+                                  {vote.atfScreenshot && (
+                                    <a href={vote.atfScreenshot} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-1 group shrink-0">
+                                      <div className="h-12 w-12 overflow-hidden rounded-md border border-ink/10 group-hover:border-coreBlue transition-colors">
+                                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                                        <img src={vote.atfScreenshot} alt="ATF Proof" className="h-full w-full object-cover" />
+                                      </div>
+                                      <span className="text-[10px] text-ink/50 font-bold">ATF</span>
+                                    </a>
+                                  )}
                                 </div>
                               </div>
                             ))}

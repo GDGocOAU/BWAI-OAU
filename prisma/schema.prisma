@@ -78,12 +78,15 @@ model ScheduleEvent {
 }
 
 model PeoplesChoiceVote {
-  id              Int                 @id @default(autoincrement())
-  projectId       Int
-  email           String              @unique
-  createdAt       DateTime            @default(now())
+  id                 Int                 @id @default(autoincrement())
+  projectId          Int
+  email              String              @unique
+  linkedinScreenshot String?
+  twitterScreenshot  String?
+  atfScreenshot      String?
+  createdAt          DateTime            @default(now())
   
-  project         WhatWasBuiltProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  project            WhatWasBuiltProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   @@index([projectId])
 }

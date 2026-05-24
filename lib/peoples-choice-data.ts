@@ -85,6 +85,9 @@ export async function getVotingResultsAdmin() {
         id: v.id,
         email: v.email,
         createdAt: v.createdAt.toISOString(),
+        linkedinScreenshot: v.linkedinScreenshot,
+        twitterScreenshot: v.twitterScreenshot,
+        atfScreenshot: v.atfScreenshot,
       })),
     }));
   } catch (error) {

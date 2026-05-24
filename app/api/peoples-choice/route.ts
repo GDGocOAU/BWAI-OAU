@@ -1,12 +1,17 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { uploadToCloudinary } from "@/lib/cloudinary";
 
 export async function POST(request: Request) {
   try {
-    const { projectId, token } = await request.json();
+    const { projectId, token, linkedinBase64, twitterBase64, atfBase64 } = await request.json();
     
     if (!projectId || !token) {
       return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
+    }
+
+    if (!linkedinBase64 || !twitterBase64) {
+      return NextResponse.json({ error: "LinkedIn and Twitter screenshots are required." }, { status: 400 });
     }
 
     const parsedProjectId = parseInt(projectId, 10);
@@ -37,12 +42,47 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "This account has already cast a vote." }, { status: 403 });
     }
 
+    let linkedinUrl = null;
+    let twitterUrl = null;
+    let atfUrl = null;
+
+    try {
+      const uploadPromises = [];
+      
+      const uploadImage = async (base64Str: string) => {
+        if (!base64Str.startsWith("data:image/")) {
+          throw new Error("Invalid file type. Only images are allowed.");
+        }
+        const base64Data = base64Str.replace(/^data:image\/\w+;base64,/, "");
+        const buffer = Buffer.from(base64Data, "base64");
+        return uploadToCloudinary(buffer, "image/jpeg", "peoples-choice-proofs");
+      };
+
+      if (linkedinBase64) {
+        uploadPromises.push(uploadImage(linkedinBase64).then(url => { linkedinUrl = url; }));
+      }
+      if (twitterBase64) {
+        uploadPromises.push(uploadImage(twitterBase64).then(url => { twitterUrl = url; }));
+      }
+      if (atfBase64) {
+        uploadPromises.push(uploadImage(atfBase64).then(url => { atfUrl = url; }));
+      }
+
+      await Promise.all(uploadPromises);
+    } catch (uploadError) {
+      console.error("Cloudinary upload error:", uploadError);
+      return NextResponse.json({ error: "Failed to upload screenshots. Please try again." }, { status: 500 });
+    }
+
     // Save vote to DB using a transaction to ensure token is consumed
     await prisma.$transaction([
       prisma.peoplesChoiceVote.create({
         data: {
           projectId: parsedProjectId,
           email: magicLink.email,
+          linkedinScreenshot: linkedinUrl,
+          twitterScreenshot: twitterUrl,
+          atfScreenshot: atfUrl,
         },
       }),
       prisma.magicLinkToken.delete({

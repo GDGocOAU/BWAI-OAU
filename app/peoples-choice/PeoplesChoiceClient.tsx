@@ -41,6 +41,33 @@ export default function PeoplesChoiceClient({ projects, initialHasVoted, token, 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [success, setSuccess] = useState(initialHasVoted);
 
+  const [linkedinBase64, setLinkedinBase64] = useState<string>("");
+  const [twitterBase64, setTwitterBase64] = useState<string>("");
+  const [atfBase64, setAtfBase64] = useState<string>("");
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, setter: (val: string) => void) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      toast.error("Only image files are accepted.");
+      return;
+    }
+
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error("File size must be 2MB maximum.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      if (event.target?.result) {
+        setter(event.target.result as string);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
   const AWARD_LOTTIE_URL = "https://assets10.lottiefiles.com/packages/lf20_touohxv0.json";
   const [awardAnimation, setAwardAnimation] = useState<object | null>(null);
 
@@ -92,13 +119,15 @@ export default function PeoplesChoiceClient({ projects, initialHasVoted, token, 
     if (!token) return toast.error("Invalid session. Please request a new magic link.");
     if (!selectedProjectId) return toast.error("Please select a project to vote for.");
 
+    if (!(linkedinBase64 && twitterBase64)) return toast.error("Please upload all required screenshots.");
+
     setIsSubmitting(true);
 
     try {
       const res = await fetch("/api/peoples-choice", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ projectId: selectedProjectId, token }),
+        body: JSON.stringify({ projectId: selectedProjectId, token, linkedinBase64, twitterBase64, atfBase64 }),
       });
 
       const data = await res.json();
@@ -350,22 +379,62 @@ export default function PeoplesChoiceClient({ projects, initialHasVoted, token, 
               <h3 className="mb-2 text-2xl font-bold text-ink">2. Engage With Our Community</h3>
               <p className="mb-6 text-sm text-ink/60">Show your support by following us and joining the ATF AI Challenge!</p>
               
-              <div className="flex flex-wrap gap-3">
-                <a href={linkedInLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#0077b5] px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#0077b5]/90">
-                  <FaLinkedinIn size={16} />
-                  Follow on LinkedIn
-                  <FiExternalLink size={14} />
-                </a>
-                <a href={twitterLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full bg-black px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-black/80">
-                  <FaXTwitter size={16} />
-                  Follow on Twitter
-                  <FiExternalLink size={14} />
-                </a>
-                <a href={atfLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full bg-coreRed px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-coreRed/90">
-                  <MdRocketLaunch size={16} />
-                  Join ATF Challenge
-                  <FiExternalLink size={14} />
-                </a>
+              <div className="mb-6 rounded-2xl bg-amber-50 p-4 border border-amber-200">
+                <p className="text-sm font-semibold text-amber-800">
+                  We updated our requirements, the items below are hereby required for submission of vote.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-6">
+                {/* LinkedIn */}
+                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-ink/5 pb-6">
+                  <div className="flex-1">
+                    <p className="text-lg font-bold text-ink mb-3">Follow on LinkedIn</p>
+                    <div className="w-full sm:max-w-xs">
+                      <label className="block text-xs font-bold text-ink/60 mb-1">Upload Screenshot (Max 2MB)</label>
+                      <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, setLinkedinBase64)} className="block w-full text-sm text-ink/70 file:mr-4 file:rounded-full file:border-0 file:bg-ink/5 file:px-4 file:py-2 file:text-sm file:font-semibold hover:file:bg-ink/10 cursor-pointer" />
+                    </div>
+                  </div>
+                  <div className="shrink-0 pt-1">
+                    <a href={linkedInLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded-full bg-[#0077b5] px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-[#0077b5]/90">
+                      <FaLinkedinIn /> View Page <FiExternalLink size={12} />
+                    </a>
+                  </div>
+                </div>
+
+                {/* Twitter */}
+                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-ink/5 pb-6">
+                  <div className="flex-1">
+                    <p className="text-lg font-bold text-ink mb-3">Follow on X</p>
+                    <div className="w-full sm:max-w-xs">
+                      <label className="block text-xs font-bold text-ink/60 mb-1">Upload Screenshot (Max 2MB)</label>
+                      <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, setTwitterBase64)} className="block w-full text-sm text-ink/70 file:mr-4 file:rounded-full file:border-0 file:bg-ink/5 file:px-4 file:py-2 file:text-sm file:font-semibold hover:file:bg-ink/10 cursor-pointer" />
+                    </div>
+                  </div>
+                  <div className="shrink-0 pt-1">
+                    <a href={twitterLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded-full bg-black px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-black/80">
+                      <FaXTwitter /> View Profile <FiExternalLink size={12} />
+                    </a>
+                  </div>
+                </div>
+
+                {/* ATF Challenge */}
+                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+                  <div className="flex-1">
+                    <p className="text-lg font-bold text-ink mb-3">
+                      Join ATF AI Challenge <span className="ml-2 inline-flex items-center rounded-full bg-ink/5 px-2.5 py-0.5 text-[10px] font-bold text-ink/60 uppercase tracking-wider align-middle">$10,000 up for grabs</span>
+                    </p>
+                    <div className="w-full sm:max-w-xs">
+                      <label className="block text-xs font-bold text-ink/60 mb-1">Upload Screenshot (Max 2MB)</label>
+                      <input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, setAtfBase64)} className="block w-full text-sm text-ink/70 file:mr-4 file:rounded-full file:border-0 file:bg-ink/5 file:px-4 file:py-2 file:text-sm file:font-semibold hover:file:bg-ink/10 cursor-pointer" />
+                    </div>
+                  </div>
+                  <div className="shrink-0 pt-1">
+                    <a href={atfLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded-full bg-coreRed px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-coreRed/90">
+                      <MdRocketLaunch /> Apply Now <FiExternalLink size={12} />
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
 
