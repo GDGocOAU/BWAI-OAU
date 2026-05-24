@@ -30,7 +30,7 @@ const htmlContent = (magicLink: string) => `
   <div style="font-family: sans-serif; padding: 20px;">
     <h2>Your Voting Magic Link</h2>
     <p>Click the link below to authenticate and cast your vote for the People's Choice Award.</p>
-    <p>This link is valid for 1 hour and can only be used once to submit a vote.</p>
+    <p>This link is valid for 5 minutes and can only be used once to submit a vote.</p>
     <a href="${magicLink}" style="display: inline-block; padding: 12px 24px; background-color: #1e1e1e; color: white; text-decoration: none; border-radius: 6px; margin-top: 20px;">
       Click here to Vote
     </a>

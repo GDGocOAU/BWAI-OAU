@@ -26,9 +26,9 @@ export async function POST(request: Request) {
       ? crypto.randomUUID()
       : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 
-    // Set expiration to 1 hour from now
+    // Set expiration to 5 minutes from now
     const expiresAt = new Date();
-    expiresAt.setHours(expiresAt.getHours() + 1);
+    expiresAt.setMinutes(expiresAt.getMinutes() + 5);
 
     // Upsert token in the DB so they only have 1 active token at a time
     await prisma.magicLinkToken.upsert({
