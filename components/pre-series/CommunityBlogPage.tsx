@@ -21,7 +21,7 @@ const PLACEHOLDER_POST: BlogPost = {
     tags: ["Build with AI", "Pre-Series", "Recap"],
     body: [
         "Our pre-series session brought together community members for a day of hands-on building, learning, and collaboration.",
-        "From foundational concepts to practical demos, attendees left with new skills and a clear path toward the main event on May 16, 2026.",
+        "From foundational concepts to practical demos, attendees left with new skills and a clear path toward the main event on July 25, 2026.",
         "Full write-up and resources will be published here shortly. Stay tuned.",
     ],
 };

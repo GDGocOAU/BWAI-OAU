@@ -1,6 +1,6 @@
 export const EVENT_DATES = {
 	preseries: ["April 18, 2026", "April 24, 2026", "April 25, 2026"],
-	mainEvent: "May 16, 2026",
+	mainEvent: "July 25, 2026",
 };
 
 export const COMMUNITIES = [

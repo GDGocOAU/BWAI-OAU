@@ -191,7 +191,7 @@ export default function PreSeriesDetailSection() {
                         <p className="max-w-2xl leading-8 text-ink/70">
                             The pre-series sessions are the warm-up. On{" "}
                             <span className="font-semibold text-ink">
-                                May 16, 2026
+                                July 25, 2026
                             </span>
                             , every community comes together for a full day of
                             keynotes, showcases, and networking at BOOC, OAU.
