@@ -1,11 +1,16 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { uploadToCloudinary } from "@/lib/cloudinary";
+import { isVotingClosed } from "@/lib/config";
 
 export async function POST(request: Request) {
   try {
+    if (isVotingClosed()) {
+      return NextResponse.json({ error: "Voting has closed. Thank you for your participation!" }, { status: 403 });
+    }
+
     const { projectId, token, linkedinBase64, twitterBase64, atfBase64 } = await request.json();
-    
+
     if (!projectId || !token) {
       return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
     }

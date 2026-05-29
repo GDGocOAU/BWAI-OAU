@@ -1,6 +1,7 @@
 import { getProjectsForVoting } from "@/lib/peoples-choice-data";
 import PeoplesChoiceClient from "./PeoplesChoiceClient";
 import { prisma } from "@/lib/prisma";
+import { isVotingClosed } from "@/lib/config";
 
 export const dynamic = "force-dynamic";
 export const metadata = {
@@ -11,23 +12,25 @@ export const metadata = {
 export default async function PeoplesChoicePage(
   { searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }
 ) {
+  const votingClosed = isVotingClosed();
+
   let projects: Awaited<ReturnType<typeof getProjectsForVoting>> = [];
-  
+
   try {
     projects = await getProjectsForVoting();
   } catch (error) {
     console.error("Failed to fetch projects for voting:", error);
     // Continue with empty projects array — the client will show an empty state
   }
-  
+
   const params = await searchParams;
   const token = typeof params.token === "string" ? params.token : null;
-  
+
   let isTokenValid = false;
   let hasVoted = false;
   let email = "";
 
-  if (token) {
+  if (!votingClosed && token) {
     try {
       const magicLink = await prisma.magicLinkToken.findUnique({
         where: { token },
@@ -36,7 +39,7 @@ export default async function PeoplesChoicePage(
       if (magicLink && magicLink.expiresAt > new Date()) {
         isTokenValid = true;
         email = magicLink.email;
-        
+
         const existingVote = await prisma.peoplesChoiceVote.findUnique({
           where: { email },
         });
@@ -51,11 +54,12 @@ export default async function PeoplesChoicePage(
   }
 
   return (
-    <PeoplesChoiceClient 
-      projects={projects} 
-      token={isTokenValid ? token : null} 
+    <PeoplesChoiceClient
+      projects={projects}
+      token={isTokenValid ? token : null}
       email={email}
-      initialHasVoted={hasVoted} 
+      initialHasVoted={hasVoted}
+      votingClosed={votingClosed}
     />
   );
 }

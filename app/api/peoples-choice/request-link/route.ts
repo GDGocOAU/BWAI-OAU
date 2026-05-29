@@ -2,9 +2,14 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { sendMagicLink } from "@/lib/mail";
 import { getCanonicalEmail } from "@/lib/email-utils";
+import { isVotingClosed } from "@/lib/config";
 
 export async function POST(request: Request) {
   try {
+    if (isVotingClosed()) {
+      return NextResponse.json({ error: "Voting has closed. Thank you for your participation!" }, { status: 403 });
+    }
+
     const { email } = await request.json();
 
     if (!email) {

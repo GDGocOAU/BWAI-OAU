@@ -29,9 +29,10 @@ type Props = {
   initialHasVoted: boolean;
   token: string | null;
   email: string;
+  votingClosed: boolean;
 };
 
-export default function PeoplesChoiceClient({ projects, initialHasVoted, token, email }: Props) {
+export default function PeoplesChoiceClient({ projects, initialHasVoted, token, email, votingClosed }: Props) {
   const [emailInput, setEmailInput] = useState("");
   const [isRequestingLink, setIsRequestingLink] = useState(false);
   const [linkSent, setLinkSent] = useState(false);
@@ -148,6 +149,37 @@ export default function PeoplesChoiceClient({ projects, initialHasVoted, token, 
   const linkedInLink = SOCIAL_LINKS.find((l) => l.label === "LinkedIn")?.href || "#";
   const twitterLink = SOCIAL_LINKS.find((l) => l.label === "Twitter/X")?.href || "#";
   const atfLink = "https://www.atfchallenge.org/apply?channel=WDVBKMUJ";
+
+  // 0. VOTING CLOSED STATE
+  if (votingClosed) {
+    return (
+      <div className="min-h-screen bg-surface pb-20">
+        <Toaster position="bottom-center" />
+        <section className="px-4 pb-10 pt-14 sm:px-6 lg:px-8 lg:pt-20">
+          <div className="mx-auto w-full max-w-3xl text-center">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut" }} className="flex flex-col items-center">
+              {awardAnimation ? (
+                <div className="h-40 w-40 sm:h-52 sm:w-52">
+                  <Lottie animationData={awardAnimation} loop autoplay />
+                </div>
+              ) : (
+                <div className="flex h-40 w-40 items-center justify-center text-7xl sm:h-52 sm:w-52">🏆</div>
+              )}
+              <h1 className="mt-4 text-5xl font-bold leading-[1.1] text-ink sm:text-6xl">Voting Closed</h1>
+              <p className="mx-auto mt-6 max-w-2xl text-[1.1rem] leading-relaxed text-ink/70">
+                The People&apos;s Choice Award voting period has ended. Winners will be announced soon — stay tuned!
+              </p>
+              <div className="mt-8">
+                <Link href="/peoples-choice/leaderboard" className="inline-flex items-center justify-center rounded-full border border-ink/20 bg-white px-6 py-3 text-sm font-bold text-ink transition-all hover:bg-ink/5">
+                  View Leaderboard
+                </Link>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+      </div>
+    );
+  }
 
   // 1. SUCCESS / ALREADY VOTED STATE
   if (success) {

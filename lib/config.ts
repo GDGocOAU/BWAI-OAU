@@ -3,6 +3,13 @@ export const EVENT_DATES = {
 	mainEvent: "July 25, 2026",
 };
 
+// Voting closes May 30, 2026 at 11:50 PM WAT (UTC+1)
+export const VOTING_DEADLINE = new Date("2026-05-30T23:50:00+01:00");
+
+export function isVotingClosed(): boolean {
+	return new Date() > VOTING_DEADLINE;
+}
+
 export const COMMUNITIES = [
 	"Data Science & ML",
 	"Mobile & Web Dev",

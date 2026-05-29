@@ -1,6 +1,7 @@
 import { getProjectsForVoting } from "@/lib/peoples-choice-data";
 import Link from "next/link";
 import { FiArrowLeft } from "react-icons/fi";
+import { isVotingClosed } from "@/lib/config";
 
 export const dynamic = "force-dynamic";
 
@@ -11,7 +12,8 @@ export const metadata = {
 
 export default async function LeaderboardPage() {
   const projects = await getProjectsForVoting();
-  
+  const votingClosed = isVotingClosed();
+
   // Sort projects by vote count (descending)
   const sortedProjects = [...projects].sort((a, b) => b.voteCount - a.voteCount);
 
@@ -21,7 +23,7 @@ export default async function LeaderboardPage() {
         <div className="mx-auto w-full max-w-3xl">
           <Link href="/peoples-choice" className="mb-6 inline-flex items-center gap-2 rounded-full border border-ink/10 bg-white px-4 py-2 text-sm font-bold text-ink transition-all hover:bg-ink/5 hover:border-ink/20">
             <FiArrowLeft size={16} />
-            Back to Voting
+            {votingClosed ? "Voting Closed" : "Back to Voting"}
           </Link>
           <div className="flex flex-col items-center text-center">
             <div className="flex h-24 w-24 items-center justify-center text-5xl">📊</div>
