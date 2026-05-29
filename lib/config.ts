@@ -411,7 +411,18 @@ export const SPONSOR_LEVEL_GROUPS: SponsorLevelGroup[] = [
 	},
 	{
 		level: "Bronze",
-		sponsors: [],
+		sponsors: [
+			{
+				name: "Megatron",
+				href: "#",
+				logo: {
+					src: "/sponsors/Megatron_Sponsor.jpeg",
+					alt: "Megatron",
+					width: 200,
+					height: 80,
+				},
+			},
+		],
 	},
 	{
 		level: "Nano",
@@ -453,6 +464,116 @@ export const COMMUNITY_PARTNERS: CommunityPartner[] = [
 		logo: {
 			src: "/partners/IMG_6519.JPG",
 			alt: "Community Partner",
+			width: 200,
+			height: 80,
+		},
+	},
+	{
+		name: "Cowrywise",
+		href: "#",
+		logo: {
+			src: "/partners/Cowrywise.jpeg",
+			alt: "Cowrywise",
+			width: 200,
+			height: 80,
+		},
+	},
+	{
+		name: "DSN OAU",
+		href: "#",
+		logo: {
+			src: "/partners/DSN OAU.jpeg",
+			alt: "DSN OAU",
+			width: 200,
+			height: 80,
+		},
+	},
+	{
+		name: "IEEE OAU SB",
+		href: "#",
+		logo: {
+			src: "/partners/IEEE OAU SB.jpeg",
+			alt: "IEEE OAU SB",
+			width: 200,
+			height: 80,
+		},
+	},
+	{
+		name: "NEXUS Africa",
+		href: "#",
+		logo: {
+			src: "/partners/NEXUS Africa.jpeg",
+			alt: "NEXUS Africa",
+			width: 200,
+			height: 80,
+		},
+	},
+	{
+		name: "NSBS",
+		href: "#",
+		logo: {
+			src: "/partners/NSBS.jpeg",
+			alt: "NSBS",
+			width: 200,
+			height: 80,
+		},
+	},
+	{
+		name: "NACOS OAU",
+		href: "#",
+		logo: {
+			src: "/partners/Nacos.jpeg",
+			alt: "NACOS OAU",
+			width: 200,
+			height: 80,
+		},
+	},
+	{
+		name: "PANS OAU",
+		href: "#",
+		logo: {
+			src: "/partners/PANS OAU.jpeg",
+			alt: "PANS OAU",
+			width: 200,
+			height: 80,
+		},
+	},
+	{
+		name: "PrepDesk",
+		href: "#",
+		logo: {
+			src: "/partners/PrepDesk.jpeg",
+			alt: "PrepDesk",
+			width: 200,
+			height: 80,
+		},
+	},
+	{
+		name: "QWorld",
+		href: "#",
+		logo: {
+			src: "/partners/QWorld.jpeg",
+			alt: "QWorld",
+			width: 200,
+			height: 80,
+		},
+	},
+	{
+		name: "RAIIN OAU",
+		href: "#",
+		logo: {
+			src: "/partners/RAIIN OAU.jpeg",
+			alt: "RAIIN OAU",
+			width: 200,
+			height: 80,
+		},
+	},
+	{
+		name: "SCA OAU",
+		href: "#",
+		logo: {
+			src: "/partners/SCA.jpeg",
+			alt: "SCA OAU",
 			width: 200,
 			height: 80,
 		},
