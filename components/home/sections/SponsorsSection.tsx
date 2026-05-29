@@ -7,11 +7,9 @@ import Link from "next/link";
 import BlackPillButton from "@/components/BlackPillButton";
 import { SITE_LINKS, SPONSOR_LEVEL_GROUPS, COMMUNITY_PARTNERS } from "@/lib/config";
 
-// Pull only real sponsors (non-placeholder hrefs) from SPONSOR_LEVEL_GROUPS
+// Pull only real sponsors from SPONSOR_LEVEL_GROUPS
 const realSponsors = SPONSOR_LEVEL_GROUPS.flatMap((group) =>
-  group.sponsors
-    .filter((s) => s.href !== "#")
-    .map((s, i) => ({ ...s, key: `sponsor-${group.level}-${i}` })),
+  group.sponsors.map((s, i) => ({ ...s, key: `sponsor-${group.level}-${i}` })),
 );
 
 // Community partners come from the COMMUNITY_PARTNERS list
