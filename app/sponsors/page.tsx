@@ -29,22 +29,22 @@ export default function SponsorsPage() {
         </h1>
 
         <div className="mt-7 flex flex-wrap items-center gap-3">
-          <Link
+          <a
             href="https://bit.ly/bwaioau-partners-deck"
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center justify-center rounded-full bg-ink px-6 py-3 text-sm font-semibold text-white transition-[transform,background-color] duration-300 hover:-translate-y-0.5 hover:bg-coreBlue hover:text-black"
           >
             See Our Deck
-          </Link>
-          <Link
+          </a>
+          <a
             href={SITE_LINKS.sponsors}
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center justify-center rounded-full border border-ink/20 bg-white px-6 py-3 text-sm font-semibold text-ink transition-[transform,background-color,color] duration-300 hover:-translate-y-0.5 hover:bg-coreBlue hover:text-black"
           >
             Fill This Form for Enquiries
-          </Link>
+          </a>
         </div>
       </section>
 
@@ -64,7 +64,7 @@ export default function SponsorsPage() {
 
                 <div className="mt-6 flex flex-wrap items-center justify-center gap-5 sm:gap-6">
                   {group.sponsors.map((sponsor) => (
-                    <Link
+                    <a
                       key={`${group.level}-${sponsor.name}`}
                       href={sponsor.href}
                       target={sponsor.href.startsWith("http") ? "_blank" : undefined}
@@ -80,7 +80,7 @@ export default function SponsorsPage() {
                         height={sponsor.logo.height}
                         className="h-auto max-h-14 w-auto max-w-36 object-contain"
                       />
-                    </Link>
+                    </a>
                   ))}
                 </div>
               </article>
@@ -93,22 +93,22 @@ export default function SponsorsPage() {
               Be the first organization featured on this page.
             </p>
             <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
-              <Link
+              <a
                 href={SITE_LINKS.sponsors}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center justify-center rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-white transition-[transform,background-color,color] duration-300 hover:-translate-y-0.5 hover:bg-coreBlue hover:text-black"
               >
                 Become a Sponsor
-              </Link>
-              <Link
+              </a>
+              <a
                 href="https://bit.ly/bwaioau-partners-deck"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center justify-center rounded-full border border-ink/20 bg-white px-5 py-2.5 text-sm font-semibold text-ink transition-[transform,background-color,color] duration-300 hover:-translate-y-0.5 hover:bg-coreBlue hover:text-black"
               >
                 See Our Deck
-              </Link>
+              </a>
             </div>
           </div>
         )}
@@ -118,22 +118,22 @@ export default function SponsorsPage() {
             Ready to partner?
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
-            <Link
+            <a
               href="https://bit.ly/bwaioau-partners-deck"
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center justify-center rounded-full border border-ink/20 bg-white px-4 py-2 text-sm font-semibold text-ink transition-[transform,background-color,color] duration-300 hover:-translate-y-0.5 hover:bg-coreBlue hover:text-black"
             >
               See Our Deck
-            </Link>
-            <Link
+            </a>
+            <a
               href={SITE_LINKS.sponsors}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center justify-center rounded-full border border-ink/20 bg-white px-4 py-2 text-sm font-semibold text-ink transition-[transform,background-color,color] duration-300 hover:-translate-y-0.5 hover:bg-coreBlue hover:text-black"
             >
               Fill This Form for Enquiries
-            </Link>
+            </a>
           </div>
         </div>
       </section>
@@ -145,7 +145,7 @@ export default function SponsorsPage() {
             <article className="rounded-3xl border border-ink/10 bg-white/80 px-5 py-6 shadow-[0_16px_30px_-26px_rgba(0,0,0,0.55)] backdrop-blur-sm sm:px-6">
               <div className="flex flex-wrap items-center justify-center gap-5 sm:gap-6">
                 {COMMUNITY_PARTNERS.map((partner) => (
-                  <Link
+                  <a
                     key={partner.name}
                     href={partner.href}
                     target={partner.href.startsWith("http") ? "_blank" : undefined}
@@ -161,7 +161,7 @@ export default function SponsorsPage() {
                       height={partner.logo.height}
                       className="h-auto max-h-14 w-auto max-w-36 object-contain"
                     />
-                  </Link>
+                  </a>
                 ))}
               </div>
             </article>

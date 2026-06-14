@@ -18,6 +18,7 @@ export default function Navbar() {
     "/main-event": 2,
     "/sponsors": 3,
     "/what-was-built": 4,
+    "/research-conf": 5,
   };
 
   const orderedNavLinks = [...NAV_LINKS].sort(
