@@ -190,6 +190,9 @@ export default function ResearchPage() {
       {/* Background gradients similar to SponsorsPage */}
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-120 bg-[radial-gradient(58rem_22rem_at_20%_0%,rgba(124,38,207,0.18),transparent),radial-gradient(52rem_20rem_at_95%_10%,rgba(66,133,244,0.15),transparent)]" />
 
+      {/* Background Grid Lines */}
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-60" />
+
       {/* Hero Section */}
       <section 
         className="mx-auto w-full max-w-7xl px-4 pt-16 sm:px-6 sm:pt-20 lg:px-8 lg:pt-24"
@@ -320,7 +323,7 @@ export default function ResearchPage() {
                     >
                       <button
                         onClick={() => toggleTrack(track.number)}
-                        className={`flex w-full items-center justify-between px-5 py-4 text-left font-semibold transition-colors duration-200 ${
+                        className={`flex w-full items-center justify-between px-5 py-4 text-left font-semibold transition-colors duration-200 cursor-pointer ${
                           isOpen ? "bg-purple-900 text-white" : "text-ink"
                         }`}
                       >
@@ -409,9 +412,70 @@ export default function ResearchPage() {
               </div>
             </div>
 
-            {/* Submission Guidelines */}
+            {/* How to Submit */}
             <div id="guidelines" className="rounded-3xl border border-ink/10 bg-white p-6 shadow-sm sm:p-8">
-              <h2 className="text-2xl font-bold text-ink sm:text-3xl">Submission Guidelines</h2>
+              <h2 className="text-2xl font-bold text-ink sm:text-3xl">How to Submit</h2>
+              
+              <div className="mt-6 flex flex-col gap-6">
+                {[
+                  {
+                    step: "Step 1",
+                    text: (
+                      <span>
+                        Prepare your abstract as a PDF following the <strong>IEEE formatting guidelines</strong> below. Do not include your name or institution inside the PDF document. Enter author details in the submission form only.
+                      </span>
+                    ),
+                  },
+                  {
+                    step: "Step 2",
+                    text: (
+                      <span>
+                        Complete the submission form at{" "}
+                        <a
+                          href="https://forms.gle/vQCa2oxraWAFJ6sL9"
+                          target="_blank"
+                          rel="noreferrer"
+                          className="font-semibold text-purple-700 underline hover:text-purple-900 transition-colors"
+                        >
+                          Google Forms link
+                        </a>
+                        . The form will ask for your title, author details, track selection, and keywords, and will include a field to upload your PDF.
+                      </span>
+                    ),
+                  },
+                  {
+                    step: "Step 3",
+                    text: "You will receive an acknowledgement email confirming receipt of your submission within 48 hours.",
+                  },
+                  {
+                    step: "Step 4",
+                    text: "Your abstract undergoes double-blind peer review by the Editorial Board. Reviewer identities are not disclosed to authors and author identities are not disclosed to reviewers.",
+                  },
+                  {
+                    step: "Step 5",
+                    text: "All applicants receive a decision — accepted, waitlisted, or declined — by the notification deadline, along with brief reviewer feedback.",
+                  },
+                  {
+                    step: "Step 6",
+                    text: "Accepted presenters receive a formal acceptance letter, the official poster style guide, a recommended print vendor list in Ile-Ife, and further logistics details for July 25.",
+                  },
+                ].map((item, index) => (
+                  <div key={index} className="flex gap-4 items-start">
+                    <span className="flex h-8 w-16 shrink-0 items-center justify-center rounded-lg bg-purple-100 text-purple-800 font-bold text-xs">
+                      {item.step}
+                    </span>
+                    <p className="text-sm text-muted leading-6">{item.text}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* IEEE Formatting Guidelines */}
+            <div id="formatting-guidelines" className="rounded-3xl border border-ink/10 bg-white p-6 shadow-sm sm:p-8">
+              <h2 className="text-2xl font-bold text-ink sm:text-3xl">IEEE Formatting Guidelines</h2>
+              <p className="mt-2 text-sm text-muted">
+                Abstracts must be formatted strictly according to the following specifications to enter the peer review process:
+              </p>
               
               <div className="mt-6 flex flex-col gap-6">
                 <div className="flex gap-3">
@@ -419,27 +483,7 @@ export default function ResearchPage() {
                     <FiPlay size={12} className="fill-purple-800" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-ink">Language</h3>
-                    <p className="mt-1 text-sm text-muted">English only.</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-3">
-                  <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded bg-purple-100 text-purple-800 font-bold text-xs">
-                    <FiPlay size={12} className="fill-purple-800" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-ink">Originality</h3>
-                    <p className="mt-1 text-sm text-muted">Submissions must be original and not previously published or presented unless substantially updated.</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-3">
-                  <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded bg-purple-100 text-purple-800 font-bold text-xs">
-                    <FiPlay size={12} className="fill-purple-800" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-ink">Format</h3>
+                    <h3 className="font-bold text-ink">Format & Fonts</h3>
                     <ul className="mt-2 flex flex-col gap-2 text-sm text-muted pl-1">
                       <li className="flex items-center gap-2">
                         <span className="h-1.5 w-1.5 rounded-full bg-purple-600" />
@@ -476,8 +520,30 @@ export default function ResearchPage() {
                     <FiPlay size={12} className="fill-purple-800" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-ink">Authorship</h3>
-                    <p className="mt-1 text-sm text-muted">List full names and affiliations of presenting and contributing authors. Clearly state which author will be presenting.</p>
+                    <h3 className="font-bold text-ink">Originality & Language</h3>
+                    <p className="mt-1 text-sm text-muted">Submissions must be original, in English only, and not previously published or presented unless substantially updated.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Poster Production */}
+            <div id="poster-production" className="rounded-3xl border border-ink/10 bg-white p-6 shadow-sm sm:p-8">
+              <h2 className="text-2xl font-bold text-ink sm:text-3xl">Poster Production</h2>
+              <p className="mt-2 text-sm text-muted">
+                Accepted presenters are responsible for designing and printing their own poster before the event.
+              </p>
+              
+              <div className="mt-6 flex flex-col gap-6">
+                <div className="flex gap-3">
+                  <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded bg-purple-100 text-purple-800 font-bold text-xs">
+                    <FiPlay size={12} className="fill-purple-800" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-ink">Poster Size & Layout</h3>
+                    <p className="mt-1 text-sm text-muted">
+                      <strong>Poster size:</strong> A0 portrait (841 × 1189mm)
+                    </p>
                   </div>
                 </div>
 
@@ -486,40 +552,59 @@ export default function ResearchPage() {
                     <FiPlay size={12} className="fill-purple-800" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-ink">Grammar</h3>
-                    <p className="mt-1 text-sm text-muted">Ensure proper grammar, spelling, and coherence.</p>
+                    <h3 className="font-bold text-ink">Templates & Assets</h3>
+                    <p className="mt-1 text-sm text-muted">
+                      We recommend using the{" "}
+                      <a
+                        href="https://www.overleaf.com/gallery/tagged/poster"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="font-semibold text-purple-700 underline hover:text-purple-900 transition-colors"
+                      >
+                        Overleaf conference poster template library
+                      </a>{" "}
+                      as a starting point. Select any template, replace the content with your research, and export as PDF for printing.
+                    </p>
+                    <p className="mt-3 text-sm text-muted font-normal">
+                      Include the Build with AI OAU 2026 logo in the top corner of your poster — the logo is available for download here:{" "}
+                      <a
+                        href="/gdg-oau-logo.png"
+                        download
+                        className="font-semibold text-purple-700 underline hover:text-purple-900 transition-colors"
+                      >
+                        Download Logo Asset
+                      </a>
+                      .
+                    </p>
                   </div>
                 </div>
-              </div>
-            </div>
 
-            {/* Review & Selection Process */}
-            <div className="rounded-3xl border border-ink/10 bg-white p-6 shadow-sm sm:p-8">
-              <h2 className="text-2xl font-bold text-ink sm:text-3xl">Review and Selection Process</h2>
-              <p className="mt-2 text-sm text-muted">
-                All submitted abstracts are reviewed by the Build with AI OAU 2026 Editorial Board — an independent panel of subject-matter experts and faculty members. The review process is double-blind: reviewers do not know the identity of the author, and authors do not know the identity of their reviewers.
-              </p>
-
-              <div className="mt-6 flex flex-col gap-4">
-                <h3 className="text-base font-bold text-ink">Scoring Criteria</h3>
-                <p className="text-sm text-muted">Each abstract is scored on four criteria:</p>
-                <div className="grid gap-4 sm:grid-cols-2">
-                  {[
-                    { title: "Clarity of research question", desc: "Is the problem well-defined and specific?" },
-                    { title: "Methodological soundness", desc: "Is the approach appropriate for the question being asked?" },
-                    { title: "Significance of contribution", desc: "Does this work add something meaningful to the field or to practice?" },
-                    { title: "Quality of writing", desc: "Is the abstract clearly and precisely written?" }
-                  ].map((criteria, i) => (
-                    <div key={i} className="rounded-xl border border-ink/5 bg-base/40 p-4">
-                      <h4 className="font-bold text-ink text-sm">{criteria.title}</h4>
-                      <p className="text-xs text-muted mt-1">{criteria.desc}</p>
-                    </div>
-                  ))}
+                <div className="flex gap-3">
+                  <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded bg-purple-100 text-purple-800 font-bold text-xs">
+                    <FiPlay size={12} className="fill-purple-800" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-ink">Style Guide</h3>
+                    <p className="mt-1 text-sm text-muted font-normal">
+                      A style guide specifying fonts, minimum text sizes, required sections, and logo placement will be sent to all accepted presenters. You do not need to design your poster before receiving it.
+                    </p>
+                  </div>
                 </div>
-                
-                <p className="text-sm text-muted mt-4">
-                  Scores are averaged across reviewers. Abstracts meeting the acceptance threshold are notified by the notification deadline. All applicants receive a decision — accepted, waitlisted, or declined — with brief reviewer feedback.
-                </p>
+
+                <div className="flex gap-3">
+                  <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded bg-purple-100 text-purple-800 font-bold text-xs">
+                    <FiPlay size={12} className="fill-purple-800" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-ink">Printing Costs & Vendors</h3>
+                    <p className="mt-1 text-sm text-muted font-semibold">
+                      Printing costs are the responsibility of the presenting author.
+                    </p>
+                    <p className="mt-1 text-sm text-muted font-normal">
+                      A list of recommended local vendors in Ile-Ife with negotiated rates will be provided to accepted presenters.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -560,7 +645,6 @@ export default function ResearchPage() {
                   {[
                     "Letter of acceptance for academic records",
                     "Inclusion in official Research Proceedings",
-                    "Poster printing support & logistical guidance",
                     "Certificate of Presentation",
                     "Eligibility for Research Poster Awards"
                   ].map((reward, i) => (
