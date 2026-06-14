@@ -266,7 +266,7 @@ export default function ResearchPage() {
             {/* About Section */}
             <div className="rounded-3xl border border-ink/10 bg-white p-6 shadow-sm sm:p-8">
               <h2 className="text-2xl font-bold text-ink sm:text-3xl">About This Call</h2>
-              <div className="mt-4 space-y-4 text-base leading-7 text-muted">
+              <div className="mt-4 flex flex-col gap-4 text-base leading-7 text-muted">
                 <p>
                   Build with AI OAU 2026 is introducing a research category for the first time. On July 25, 2026, alongside keynote addresses, panel discussions, and breakout sessions, we will host a Research Poster Session where accepted researchers present original work to an audience of 300+ students, early-career practitioners, and industry professionals from across southwestern Nigeria.
                 </p>
@@ -338,7 +338,7 @@ export default function ResearchPage() {
                             exit={{ height: 0, opacity: 0 }}
                             transition={{ duration: 0.25, ease: "easeInOut" }}
                           >
-                            <div className="px-5 py-5 space-y-4 text-sm leading-6 text-muted">
+                            <div className="px-5 py-5 flex flex-col gap-4 text-sm leading-6 text-muted">
                               <p className="font-medium text-ink/95">{track.description}</p>
                               <div>
                                 <h4 className="font-bold text-ink uppercase tracking-wider text-[11px] mb-2">Relevant Sub-areas:</h4>
@@ -393,7 +393,7 @@ export default function ResearchPage() {
                         {opt.title}
                       </h3>
                       
-                      <div className="mt-5 space-y-4 relative z-10">
+                      <div className="mt-5 flex flex-col gap-4 relative z-10">
                         {opt.sections.map((section, idx) => (
                           <div key={idx} className="text-sm">
                             <span className={`font-bold block ${
@@ -413,7 +413,7 @@ export default function ResearchPage() {
             <div id="guidelines" className="rounded-3xl border border-ink/10 bg-white p-6 shadow-sm sm:p-8">
               <h2 className="text-2xl font-bold text-ink sm:text-3xl">Submission Guidelines</h2>
               
-              <div className="mt-6 space-y-6">
+              <div className="mt-6 flex flex-col gap-6">
                 <div className="flex gap-3">
                   <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded bg-purple-100 text-purple-800 font-bold text-xs">
                     <FiPlay size={12} className="fill-purple-800" />
@@ -440,7 +440,7 @@ export default function ResearchPage() {
                   </div>
                   <div>
                     <h3 className="font-bold text-ink">Format</h3>
-                    <ul className="mt-2 space-y-2 text-sm text-muted pl-1">
+                    <ul className="mt-2 flex flex-col gap-2 text-sm text-muted pl-1">
                       <li className="flex items-center gap-2">
                         <span className="h-1.5 w-1.5 rounded-full bg-purple-600" />
                         <span><strong>Title:</strong> Times New Roman, 12pt, sentence case, centered, bold.</span>
@@ -500,7 +500,7 @@ export default function ResearchPage() {
                 All submitted abstracts are reviewed by the Build with AI OAU 2026 Editorial Board — an independent panel of subject-matter experts and faculty members. The review process is double-blind: reviewers do not know the identity of the author, and authors do not know the identity of their reviewers.
               </p>
 
-              <div className="mt-6 space-y-4">
+              <div className="mt-6 flex flex-col gap-4">
                 <h3 className="text-base font-bold text-ink">Scoring Criteria</h3>
                 <p className="text-sm text-muted">Each abstract is scored on four criteria:</p>
                 <div className="grid gap-4 sm:grid-cols-2">
@@ -539,7 +539,7 @@ export default function ResearchPage() {
                 Ensure you have formatted your abstract strictly according to the guidelines, then submit via the official form before the deadline.
               </p>
 
-              <div className="mt-5 space-y-3">
+              <div className="mt-5 flex flex-col gap-3">
                 <a
                   href="#"
                   target="_blank"
@@ -580,7 +580,7 @@ export default function ResearchPage() {
                 Timeline
               </h3>
               
-              <div className="mt-5 space-y-6">
+              <div className="mt-5 flex flex-col gap-6">
                 {processedItems.map((item, idx) => {
                   const isPast = item.status === "past";
                   const isActive = item.status === "active";
