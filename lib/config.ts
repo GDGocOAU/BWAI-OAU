@@ -41,6 +41,7 @@ export const SITE_LINKS = {
 	preSeries: "/pre-series",
 	schedule: "/schedule",
 	whatWasBuilt: "/what-was-built",
+	abstract_submission: "https://forms.gle/vbxBnza2V6ifoeC1A"
 };
 
 export const HERO_PILLS = [

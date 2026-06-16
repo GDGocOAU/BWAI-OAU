@@ -17,6 +17,7 @@ import {
   FiPlay,
   FiCheck
 } from "react-icons/fi";
+import { SITE_LINKS } from "@/lib/config";
 
 // Tracks Data from Website Deliverables.md
 const TRACKS = [
@@ -223,7 +224,7 @@ export default function ResearchPage() {
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <a
-                href="#"
+                href={SITE_LINKS.abstract_submission}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-purple-950 shadow-sm transition-transform duration-300 hover:-translate-y-0.5 hover:bg-purple-50"
@@ -432,7 +433,7 @@ export default function ResearchPage() {
                       <span>
                         Complete the submission form at{" "}
                         <a
-                          href="https://forms.gle/vQCa2oxraWAFJ6sL9"
+                          href={SITE_LINKS.abstract_submission}
                           target="_blank"
                           rel="noreferrer"
                           className="font-semibold text-purple-700 underline hover:text-purple-900 transition-colors"
@@ -626,7 +627,7 @@ export default function ResearchPage() {
 
               <div className="mt-5 flex flex-col gap-3">
                 <a
-                  href="#"
+                  href={SITE_LINKS.abstract_submission}
                   target="_blank"
                   rel="noreferrer"
                   className="flex w-full items-center justify-center rounded-full bg-purple-900 py-3 text-sm font-semibold text-white shadow-sm transition-transform duration-300 hover:-translate-y-0.5 hover:bg-purple-950"
