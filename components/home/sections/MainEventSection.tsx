@@ -16,6 +16,7 @@ import {
 	EVENT_SPEAKERS,
 	EVENT_SCHEDULE,
 	EVENT_LOCATION,
+	EVENT_PANELISTS,
 } from "@/lib/config";
 import GhostPillButton from "@/components/GhostPillButton";
 
@@ -159,6 +160,36 @@ export default function MainEventSection() {
 								key={index}
 								index={index}
 								speaker={speaker}
+							/>
+						))}
+					</div>
+				</div>
+			</section>
+
+			{/* Panelist Grid */}
+			<section className="px-4 py-16 sm:px-6 lg:px-8">
+				<div className="mx-auto max-w-6xl">
+					<motion.h2
+						className="mb-12 flex items-center justify-center gap-2 sm:gap-3 text-center text-2xl font-bold text-ink sm:text-4xl"
+						initial={{ opacity: 0, y: 24 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						viewport={{ once: false, amount: 0.4 }}
+						transition={{ duration: 0.6 }}
+					>
+						Panelists
+						<img
+							src="/branding.png"
+							alt="GDG Branding"
+							className="h-6 sm:h-8 w-auto"
+						/>
+					</motion.h2>
+
+					<div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 justify-items-center">
+						{EVENT_PANELISTS.map((panelist, index) => (
+							<SpeakerCard
+								key={index}
+								index={index}
+								speaker={panelist}
 							/>
 						))}
 					</div>

@@ -710,56 +710,124 @@ export const WHAT_WAS_BUILT_PROJECTS: Project[] = [
 	},
 ];
 
+export type SocialLinks = {
+	twitter?: string;
+	linkedin?: string;
+	github?: string;
+	website?: string;
+};
+
 export type Speaker = {
 	name: string;
 	title: string;
 	photo: string;
 	organization: string;
 	track: string;
+	socials?: SocialLinks;
+	slug: string;
+	bio: string;
+};
+
+export type Panelist = {
+	name: string;
+	title: string;
+	photo: string;
+	organization: string;
+	track: string;
+	socials?: SocialLinks;
+	slug: string;
+	bio: string;
 };
 
 export const EVENT_SPEAKERS: Speaker[] = [
 	{
-		name: "Coming Soon...",
-		title: "To Be Announced",
-		organization: "TBA",
-		track: "AI Research",
-		photo: "main-event/gdg-speaker-avatar.png",
+		name: "Confidence Staveley",
+		title: "Founder",
+		organization: "Cybersafe Foundation",
+		track: "Cybersecurity",
+		photo: "/main-event/confidence_stavely.jpeg",
+		slug: "confidence-staveley",
+		bio: "Confidence Staveley is the Founder of Cybersafe Foundation. She is a multi-award-winning cybersecurity professional, author, and international speaker, dedicated to making cybersecurity accessible and protecting organizations from cyber threats.",
+		socials: {
+			linkedin: "https://linkedin.com/in/confidencestaveley",
+			website: "https://cybersafefoundation.org"
+		}
 	},
 	{
 		name: "Coming Soon...",
 		title: "To Be Announced",
 		organization: "TBA",
 		track: "Data Science & ML",
-		photo: "main-event/gdg-speaker-avatar.png",
+		photo: "/main-event/gdg-speaker-avatar.png",
+		slug: "coming-soon-2",
+		bio: "Biography coming soon. Stay tuned for updates on our keynote speakers!",
+		socials: {
+			linkedin: "https://linkedin.com/in/",
+			website: "https://example.com"
+		}
 	},
 	{
 		name: "Coming Soon...",
 		title: "To Be Announced",
 		organization: "TBA",
 		track: "Mobile & Web Dev",
-		photo: "main-event/gdg-speaker-avatar.png",
+		photo: "/main-event/gdg-speaker-avatar.png",
+		slug: "coming-soon-3",
+		bio: "Biography coming soon. Stay tuned for updates on our keynote speakers!",
+		socials: {
+			linkedin: "https://linkedin.com/in/",
+			website: "https://example.com"
+		}
+	}
+];
+
+export const EVENT_PANELISTS: Panelist[] = [
+	{
+		name: "Efam Harris",
+		title: "Senior Security Engineer",
+		organization: "Digiss",
+		track: "Cybersecurity",
+		photo: "/main-event/Efam_Harris.jpeg",
+		slug: "efam-harris",
+		bio: `Efam Harris is a Senior Security Engineer working across a broad range of cybersecurity domains including cloud security, security operations (SOC), incident response, identity and access management (IAM), and data loss prevention (DLP). His role spans multiple environments and security challenges, reflecting hands-on experience across the full security lifecycle.
+
+He was the first professional from Nigeria to be named a Wazuh Ambassador, highlighting his commitment to advancing cybersecurity awareness, community engagement, and open-source contributions. 
+
+He holds multiple certifications, including CompTIA Security+, AWS Certified Cloud Practitioner, AWS Certified Solutions Architect Associate, Kubernetes and Cloud Native Associate (KCNA), and Google Associate Cloud Engineer. With a background in Microbiology from the University of Lagos, he brings a practical and adaptive approach to cybersecurity and is passionate about mentoring and knowledge sharing.
+`,
+
+		socials: {
+			linkedin: "https://linkedin.com/in/efamharris",
+			website: "https://clippings.me"
+		}
+	},
+	{
+		name: "Damilola Abiona",
+		title: "Application Security Engineer",
+		organization: "CyberSafe Foundation",
+		track: "Cybersecurity",
+		photo: "/main-event/Damilola_Abiona.jpeg",
+		slug: "damilola-abiona",
+		bio: `Damilola Abiona is an Application Security Engineer, cybersecurity educator, and AI security researcher with experience securing web applications, mobile, APIs, cloud environments, and emerging AI systems. She is the founder of HackingAPIsWithDami, an initiative dedicated to helping aspiring security professionals develop practical API security skills through hands-on training and mentorship. 
+
+Damilola has trained and mentored hundreds of learners through cybersecurity communities and educational programs. As a speaker and advocate for cybersecurity awareness, she is passionate about bridging the gap between security, artificial intelligence, and education while inspiring the next generation of technology professionals.
+`,
+		socials: {
+			linkedin: "https://linkedin.com/in/damilola-abiona-2990781b4"
+		}
 	},
 	{
 		name: "Coming Soon...",
 		title: "To Be Announced",
 		organization: "TBA",
-		track: "Cloud & Cybersecurity",
-		photo: "main-event/gdg-speaker-avatar.png",
-	},
-	{
-		name: "Coming Soon...",
-		title: "To Be Announced",
-		organization: "TBA",
-		track: "Game Dev & Design",
-		photo: "main-event/gdg-speaker-avatar.png",
-	},
-	{
-		name: "Coming Soon...",
-		title: "To Be Announced",
-		organization: "TBA",
-		track: "The Creative Track",
-		photo: "main-event/gdg-speaker-avatar.png",
+		track: "Mobile & Web Dev",
+		photo: "/main-event/gdg-speaker-avatar.png",
+		slug: "coming-soon-4",
+		bio: "Biography coming soon. Stay tuned for updates on our panel discussions!",
+		socials: {
+			linkedin: "https://linkedin.com/in/",
+			website: "https://example.com"
+		}
 	},
 ];
 

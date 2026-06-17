@@ -52,7 +52,7 @@ export default function SponsorsPage() {
         <h2 className="text-2xl font-bold text-ink sm:text-3xl">Sponsors by Level</h2>
 
         {hasAnySponsors ? (
-          <div className="mt-8 space-y-10 lg:space-y-12">
+          <div className="mt-8 flex flex-col gap-10 lg:gap-12">
             {sponsorGroupsWithEntries.map((group) => (
               <article
                 key={group.level}
