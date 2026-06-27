@@ -160,6 +160,7 @@ export default function MainEventSection() {
 								key={index}
 								index={index}
 								speaker={speaker}
+								role={speaker.role}
 							/>
 						))}
 					</div>
@@ -190,6 +191,7 @@ export default function MainEventSection() {
 								key={index}
 								index={index}
 								speaker={panelist}
+								role="PANELIST"
 							/>
 						))}
 					</div>

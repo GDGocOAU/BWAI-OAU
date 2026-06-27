@@ -4,7 +4,7 @@ import { FaLinkedinIn, FaXTwitter, FaGithub } from "react-icons/fa6";
 import { FiGlobe, FiArrowRight } from "react-icons/fi";
 import Link from "next/link";
 
-function SpeakerCard({ index, speaker }: { index: number; speaker: Speaker }) {
+function SpeakerCard({ index, speaker, role = "SPEAKER" }: { index: number; speaker: Speaker; role?: string }) {
 	const isComingSoon = speaker.name === "Coming Soon...";
 
 	return (
@@ -44,12 +44,15 @@ function SpeakerCard({ index, speaker }: { index: number; speaker: Speaker }) {
 			</div>
 
 			{/* GDG OAU Logo stuff */}
-			<div className="overflow-hidden mt-2">
-				<img
-					src={"/main-event/speaker-branding.png"}
-					alt={"Image branding"}
-					className="h-full w-full object-cover"
-				/>
+			<div className="flex items-center justify-between px-4 mt-2">
+				<span className="text-sm font-light tracking-widest text-coreBlue uppercase whitespace-nowrap">
+					{role}
+				</span>
+				{/* <img
+					src={"/main-event/branding.png"}
+					alt={"GDG branding"}
+					className="h-6 w-auto"
+				/> */}
 			</div>
 
 			{/* Details - Bottom */}

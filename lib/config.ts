@@ -25,6 +25,7 @@ export const NAV_LINKS = [
 	{ label: "Main Event", href: "/main-event" },
 	{ label: "What Was Built", href: "/what-was-built" },
 	{ label: "Research Conf", href: "/research-conf" },
+	{ label: "Our Team", href: "/organizing-committee" },
 ];
 
 export const SOCIAL_LINKS = [
@@ -726,6 +727,7 @@ export type Speaker = {
 	socials?: SocialLinks;
 	slug: string;
 	bio: string;
+	role?: "SPEAKER" | "PANELIST" | "KEYNOTE SPEAKER"
 };
 
 export type Panelist = {
@@ -751,7 +753,8 @@ export const EVENT_SPEAKERS: Speaker[] = [
 		socials: {
 			linkedin: "https://linkedin.com/in/confidencestaveley",
 			website: "https://cybersafefoundation.org"
-		}
+		},
+		role: "KEYNOTE SPEAKER"
 	},
 	{
 		name: "Coming Soon...",
@@ -866,6 +869,66 @@ export const EVENT_SCHEDULE = [
 		time: "4:00 PM",
 		title: "Closing Ceremony",
 		description: "Awards and next steps",
+	},
+];
+
+export type Organizer = {
+	name: string;
+	role: string;
+	course: string;
+	level: string;
+	photo: string;
+	socials?: SocialLinks;
+};
+
+export const ORGANIZERS: Organizer[] = [
+	{
+		name: "Akingunsoye Favour Adurapemi",
+		role: "Community Lead",
+		course: "Bsc. Computer engineering",
+		level: "300 Level",
+		photo: "/organizers/adurapemi.jpeg",
+		socials: {},
+	},
+	{
+		name: "Joseph Taiwo",
+		role: "Organizer",
+		course: "BSc. Computer Science with Economics",
+		level: "400 Level",
+		photo: "/organizers/Aribad.jpeg",
+		socials: {},
+	},
+	{
+		name: "Moshood Bushroh",
+		role: "Organizer",
+		course: "BSc. Computer Science with Mathematics",
+		level: "200 Level",
+		photo: "/organizers/bushroh.jpeg",
+		socials: {},
+	},
+	{
+		name: "Adesina Lekan Samuel ",
+		role: "Organizer",
+		course: "BSc. Computer Science with Mathematics",
+		level: "400 Level",
+		photo: "/organizers/Limitless.jpeg",
+		socials: {},
+	},
+	{
+		name: "St. Mark Adebayo",
+		role: "Organizer",
+		course: "BSc Microbiology",
+		level: "400 Level",
+		photo: "/organizers/stmarkadebayo.png",
+		socials: {},
+	},
+	{
+		name: "Joseph Oyetunde",
+		role: "Organizer",
+		course: "BSc Computer Science & Engineering",
+		level: "400 Level",
+		photo: "/organizers/codegod.jpg",
+		socials: {},
 	},
 ];
 
