@@ -24,7 +24,7 @@ export const NAV_LINKS = [
 	{ label: "Sponsors", href: "/sponsors" },
 	{ label: "Main Event", href: "/main-event" },
 	{ label: "What Was Built", href: "/what-was-built" },
-	{ label: "Research Conf", href: "/research-conf" },
+	// { label: "Research Conf", href: "/research-conf" },
 	{ label: "Our Team", href: "/organizing-committee" },
 ];
 
