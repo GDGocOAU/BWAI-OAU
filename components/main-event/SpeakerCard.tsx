@@ -4,7 +4,7 @@ import { FaLinkedinIn, FaXTwitter, FaGithub } from "react-icons/fa6";
 import { FiGlobe, FiArrowRight } from "react-icons/fi";
 import Link from "next/link";
 
-function SpeakerCard({ index, speaker, role = "SPEAKER" }: { index: number; speaker: Speaker; role?: string }) {
+function SpeakerCard({ index, speaker, role = "SPEAKER" }: { index: number; speaker: Speaker; role?: "SPEAKER" | "PANELIST" | "KEYNOTE SPEAKER" }) {
 	const isComingSoon = speaker.name === "Coming Soon...";
 
 	return (
@@ -20,9 +20,11 @@ function SpeakerCard({ index, speaker, role = "SPEAKER" }: { index: number; spea
 			}}
 		>
 			{/* Track Badge - Top Left */}
-			<span className="absolute top-4 left-4 z-10 inline-flex items-center rounded-full bg-halftoneBlue px-3 py-1 text-xs font-bold text-ink opacity-90">
-				{speaker.track}
-			</span>
+			{ role == "PANELIST" && (
+				<span className="absolute top-4 left-4 z-10 inline-flex items-center rounded-full bg-halftoneBlue px-3 py-1 text-xs font-bold text-ink opacity-90">
+					{speaker.track}
+				</span>
+			)}
 
 			{/* Image - Full Width Top */}
 			<div className="h-96 w-full overflow-hidden border-b-2">

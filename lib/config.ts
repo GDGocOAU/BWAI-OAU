@@ -749,7 +749,23 @@ export const EVENT_SPEAKERS: Speaker[] = [
 		track: "Cybersecurity",
 		photo: "/main-event/confidence_stavely.jpeg",
 		slug: "confidence-staveley",
-		bio: "Confidence Staveley is the Founder of Cybersafe Foundation. She is a multi-award-winning cybersecurity professional, author, and international speaker, dedicated to making cybersecurity accessible and protecting organizations from cyber threats.",
+		bio: `
+			Confidence Staveley is a multi-award-winning cybersecurity leader, author, and one of the most distinctive voices at the intersection of AI and security. 
+			
+			Known for making complex technical concepts land with any audience, she holds the CISSP, CSSLP, and CCISO certifications and serves on the World Economic Forum's Global Future Council on Cybersecurity and as a Global Ambassador for the Global Council for Responsible AI.
+			
+			Some of her accolades include 
+			Top 40 Global Thought Leader in Security and Safety
+			(2024 & 2025), SANS Difference Maker Award: People's Champion of the Year (2024),
+			Cybersecurity Woman of the World (2023), 
+			Top 25 Leader in Cybersecurity (2024), 
+			SC Media’s Women in IT Security 2024 Power Player, 
+			Security Magazine’s 2024 Women In Cybersecurity and recognition among the "150 Fascinating Females Fighting Cybercrime."
+			Confidence is the Founder and Editor-in-Chief of AI Cyber Magazine, a practitioner-focused publication on AI and cybersecurity, and hosts The AI Cyber Podcast. 
+			She leads CyberSafe Foundation, a nonprofit democratizing access to cybersecurity and AI education.
+			A sought-after keynote speaker and board advisor, Confidence brings the rare combination of technical depth, editorial credibility, and the ability to cut through hype, delivering talks that leave audiences better informed and ready to act.
+
+		`,
 		socials: {
 			linkedin: "https://linkedin.com/in/confidencestaveley",
 			website: "https://cybersafefoundation.org"
@@ -757,17 +773,24 @@ export const EVENT_SPEAKERS: Speaker[] = [
 		role: "KEYNOTE SPEAKER"
 	},
 	{
-		name: "Coming Soon...",
-		title: "To Be Announced",
-		organization: "TBA",
-		track: "Data Science & ML",
-		photo: "/main-event/gdg-speaker-avatar.png",
-		slug: "coming-soon-2",
-		bio: "Biography coming soon. Stay tuned for updates on our keynote speakers!",
+		name: "Charles Grant",
+		title: "Vice President",
+		organization: "JPMorganChase",
+		track: "",
+		photo: "/main-event/charles_grant.jpeg",
+		slug: "charles-grant",
+		bio: `
+			Charles Grant is a Vice President at JPMorgan Chase, with over a decade of finance, audit, accounting, and analytics experience across PwC, Deloitte, Grant Thornton, and Forvis Mazars.
+			
+			An ACCA-chartered accountant, he builds AI tools that streamline finance and analytics workflows, improving speed, accuracy, and reliability. Nigerian by heritage, he writes, speaks, and builds at the intersection of artificial intelligence and African finance.
+
+			At Build with AI OAU, he speaks as both a practitioner inside a global bank and an independent builder.
+		`,
 		socials: {
-			linkedin: "https://linkedin.com/in/",
-			website: "https://example.com"
-		}
+			// linkedin: "https://linkedin.com/in/",
+			// website: "https://example.com"
+		},
+		role: "KEYNOTE SPEAKER"
 	},
 	{
 		name: "Coming Soon...",
@@ -820,16 +843,39 @@ Damilola has trained and mentored hundreds of learners through cybersecurity com
 		}
 	},
 	{
-		name: "Coming Soon...",
-		title: "To Be Announced",
-		organization: "TBA",
-		track: "Mobile & Web Dev",
-		photo: "/main-event/gdg-speaker-avatar.png",
-		slug: "coming-soon-4",
-		bio: "Biography coming soon. Stay tuned for updates on our panel discussions!",
+		name: "Grace Eyiolawi",
+		title: "Founder",
+		organization: "SHE AI Africa",
+		track: "AI Governance & Policy",
+		photo: "/main-event/grace_eyiolawi.jpeg",
+		slug: "grace-eyiolawi",
+		bio: `
+			Grace Eyiolawi is the Founder of Afrique AI Lab, an independent pan-African institution advancing AI through skill development, research and innovation, policy and governance, and ecosystem building. She leads initiatives that strengthen Africa’s capacity to develop, deploy, and govern artificial intelligence responsibly. 
+			
+			Grace is also the Founder of SHE AI Africa, where she champions gender-responsive AI governance and inclusive digital policy. Her work brings together researchers, policymakers, civil society, and industry to ensure African perspectives shape the future of AI and that its benefits are equitable, accountable, and locally relevant.
+		`,
 		socials: {
-			linkedin: "https://linkedin.com/in/",
-			website: "https://example.com"
+			linkedin: "https://www.linkedin.com/in/graceeyiolawi/",
+			// website: "https://example.com"
+		}
+	},
+	{
+		name: "Ridwan Badmus",
+		title: "Head of Technology Law, Privacy/Data Protection & AI Governance",
+		organization: "Oguntoye & Oguntoye LP",
+		track: "AI Governance & Policy",
+		photo: "/main-event/ridwan_badmus.jpeg",
+		slug: "ridwan-badmus",
+		bio: `
+			Ridwan Badmus is the Head of Technology Law, Privacy/Data Protection and AI Governance at Oguntoye & Oguntoye LP, Privacy Engineering and AI Governance Lead at TechStabs Consulting and Co-Founder/Privacy Technologist at FR Data Protection. He's certified as an AI Governance Professional and Information Privacy Technologist with the International Association of Privacy Professionals (IAPP).
+
+			Ridwan specialises in seamlessly integrating privacy, data protection & trustworthy AI requirements into products to process data responsibly. As a technology lawyer, he provides legal expertise across various domains, offering rare multidisciplinary support to startups and enterprises.
+
+			Ridwan is a lifelong learner and innovative thinker, committed to continuous growth and excellence.
+		`,
+		socials: {
+			linkedin: "https://www.linkedin.com/in/ridwan-badmus-aciarb/",
+			// website: "https://example.com"
 		}
 	},
 ];
