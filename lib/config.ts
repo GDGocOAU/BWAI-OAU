@@ -432,11 +432,52 @@ export const SPONSOR_LEVEL_GROUPS: SponsorLevelGroup[] = [
 					height: 80,
 				},
 			},
+			{
+				name: "AISecEng",
+				href: "#",
+				logo: {
+					src: "/sponsors/aiseceng.jpeg",
+					alt: "AISecEng",
+					width: 200,
+					height: 80,
+				},
+			},
 		],
 	},
 	{
 		level: "Nano",
-		sponsors: [],
+		sponsors: [
+			{
+				name: "CybariK",
+				href: "#",
+				logo: {
+					src: "/sponsors/CybariK-logo.jpg",
+					alt: "CybariK",
+					width: 200,
+					height: 80,
+				},
+			},
+			{
+				name: "Truck",
+				href: "#",
+				logo: {
+					src: "/sponsors/truck.jpeg",
+					alt: "CybariK",
+					width: 200,
+					height: 80,
+				},
+			},
+			{
+				name: "Battletest",
+				href: "#",
+				logo: {
+					src: "/sponsors/Battletest.jpeg",
+					alt: "Battletest",
+					width: 200,
+					height: 80,
+				},
+			},
+		],
 	},
 ] as const;
 
@@ -843,6 +884,23 @@ Damilola has trained and mentored hundreds of learners through cybersecurity com
 		}
 	},
 	{
+		name: "Miracle Owolabi",
+		title: "Offensive Security Engineer",
+		organization: "",
+		track: "Cybersecurity",
+		photo: "/main-event/miracle_owolabi.jpeg",
+		slug: "miracle_owolabi",
+		bio: `Miracle Owolabi is an AI security researcher and offensive security engineer working on the security of autonomous AI systems. 
+		
+		He is a core author of the OWASP AI Exchange, the global industry standard for AI security, and has presented his research at DEF CON 33 and Black Hat MEA 2025. His work focuses on how AI agents can be attacked and defended as they take on more autonomous roles in real systems. 
+		
+		An Obafemi Awolowo University graduate in Electronic and Electrical Engineering, he builds open-source security tools and writes on agentic AI security.
+`,
+		socials: {
+			linkedin: "https://www.linkedin.com/in/miracleowolabi-security"
+		}
+	},
+	{
 		name: "Grace Eyiolawi",
 		title: "Founder",
 		organization: "SHE AI Africa",
@@ -888,33 +946,48 @@ export const EVENT_LOCATION = {
 export const EVENT_SCHEDULE = [
 	{
 		time: "9:00 AM",
-		title: "Registration & Welcome",
-		description: "Check-in and networking breakfast",
+		title: "Opening Speech",
+		description: "By the Campus Lead (Blessing Agbor)",
 	},
 	{
 		time: "10:00 AM",
-		title: "Opening Keynote",
+		title: "⁠Keynote session",
 		description: "Welcome address and event overview",
 	},
 	{
 		time: "11:00 AM",
-		title: "Community Presentations",
-		description: "Showcase of pre-series projects",
+		title: "AI Gov panel session",
+		description: "Insights on AI governance and policy",
 	},
 	{
 		time: "1:00 PM",
-		title: "Lunch Break",
-		description: "Networking and refreshments",
+		title: "⁠Breakout session",
+		description: "Hands-on workshops and community showcases (Web development, Data science, Cybersecurity, Design)",
 	},
 	{
 		time: "2:00 PM",
-		title: "Panel Discussions",
-		description: "Industry experts share insights",
+		title: "Kahoot",
+		description: "Interactive quiz session for attendees",
 	},
 	{
 		time: "4:00 PM",
-		title: "Closing Ceremony",
-		description: "Awards and next steps",
+		title: "Cybersecurity Panel Session",
+		description: "Insights on AI security and threat detection",
+	},
+	{
+		time: "4:00 PM",
+		title: "Lunch",
+		description: "Buffet lunch for all attendees",
+	},
+	{
+		time: "4:00 PM",
+		title: "⁠Hackathon Pitch and Award Ceremony",
+		description: "Presentations of hackathon projects and award distribution",
+	},
+	{
+		time: "4:00 PM",
+		title: "Closing Remarks",
+		description: "By the Campus Lead (Blessing Agbor) and event organizers",
 	},
 ];
 

@@ -48,7 +48,7 @@ export default function TimelineSchedule({
 										: "sm:justify-start"
 								}`}
 							>
-								<div
+								{/* <div
 									className={`inline-flex items-center gap-2 rounded-full px-4 py-2 font-mono text-sm font-bold shadow-sm ${theme.timeBg} ${theme.timeText}`}
 								>
 									<span
@@ -59,7 +59,7 @@ export default function TimelineSchedule({
 										}`}
 									/>
 									{item.time}
-								</div>
+								</div> */}
 							</div>
 
 							{/* Timeline dot (Centered on Desktop) */}
