@@ -158,13 +158,64 @@ const webDevPhotoSlots = [
 	"https://bwaioau.site/preseries/web-dev/DSC_7701.jpg",
 	"https://bwaioau.site/preseries/web-dev/DSC_7737.jpg",
 ]
+const dataSciPhotoSlots = [
+	"https://bwaioau.site/preseries/data-science/DSC_6113.jpg",
+	"https://bwaioau.site/preseries/data-science/DSC_6115.jpg",
+	"https://bwaioau.site/preseries/data-science/DSC_6120.jpg",
+	"https://bwaioau.site/preseries/data-science/DSC_6121.jpg",
+	"https://bwaioau.site/preseries/data-science/DSC_6398.jpg",
+	"https://bwaioau.site/preseries/data-science/DSC_6401.jpg",
+	"https://bwaioau.site/preseries/data-science/DSC_6493.jpg",
+	"https://bwaioau.site/preseries/data-science/DSC_6507.jpg",
+	"https://bwaioau.site/preseries/data-science/DSC_6755.jpg",
+]
+const gameDevPhotoSlots = [
+	"https://bwaioau.site/preseries/game-dev/DSC_6087.jpg",
+	"https://bwaioau.site/preseries/game-dev/DSC_6091.jpg",
+	"https://bwaioau.site/preseries/game-dev/DSC_6129.jpg",
+	"https://bwaioau.site/preseries/game-dev/DSC_6136.jpg",
+	"https://bwaioau.site/preseries/game-dev/DSC_6158.jpg",
+	"https://bwaioau.site/preseries/game-dev/DSC_6187.jpg",
+	"https://bwaioau.site/preseries/game-dev/DSC_6271.jpg",
+	"https://bwaioau.site/preseries/game-dev/DSC_6308.jpg",
+	"https://bwaioau.site/preseries/game-dev/DSC_6321.jpg",
+	"https://bwaioau.site/preseries/game-dev/DSC_6444.jpg",
+	"https://bwaioau.site/preseries/game-dev/DSC_6635.jpg",
+	"https://bwaioau.site/preseries/game-dev/DSC_6732.jpg",
+	"https://bwaioau.site/preseries/game-dev/DSC_6736.jpg",
+	"https://bwaioau.site/preseries/game-dev/DSC_6738.jpg",
+	"https://bwaioau.site/preseries/game-dev/DSC_6796.jpg",
+	"https://bwaioau.site/preseries/game-dev/DSC_6837.jpg",
+	"https://bwaioau.site/preseries/game-dev/DSC_6918.jpg",
+]
+const cybersecurityPhotoSlots = [
+	"https://bwaioau.site/preseries/cybersecurity/DSC_0436.jpg",
+	"https://bwaioau.site/preseries/cybersecurity/DSC_0437.jpg",
+	"https://bwaioau.site/preseries/cybersecurity/DSC_0440.jpg",
+	"https://bwaioau.site/preseries/cybersecurity/DSC_0442.jpg",
+	"https://bwaioau.site/preseries/cybersecurity/DSC_0445.jpg",
+	"https://bwaioau.site/preseries/cybersecurity/DSC_0456.jpg",
+	"https://bwaioau.site/preseries/cybersecurity/DSC_0475.jpg",
+	"https://bwaioau.site/preseries/cybersecurity/DSC_0483.jpg",
+	"https://bwaioau.site/preseries/cybersecurity/DSC_0486.jpg",
+	"https://bwaioau.site/preseries/cybersecurity/DSC_0498.jpg",
+	"https://bwaioau.site/preseries/cybersecurity/DSC_0503.jpg",
+	"https://bwaioau.site/preseries/cybersecurity/DSC_0517.jpg",
+	"https://bwaioau.site/preseries/cybersecurity/DSC_0560.jpg",
+	"https://bwaioau.site/preseries/cybersecurity/DSC_0564.jpg",
+	"https://bwaioau.site/preseries/cybersecurity/DSC_0565.jpg",
+	"https://bwaioau.site/preseries/cybersecurity/DSC_0589.jpg",
+	"https://bwaioau.site/preseries/cybersecurity/DSC_0595.jpg",
+	"https://bwaioau.site/preseries/cybersecurity/DSC_0765.jpg",
+	"https://bwaioau.site/preseries/cybersecurity/DSC_0973.jpg",
+]
 
 export const PRESERIES_PHOTO_SLOTS: Record<string, string[]> = {
 	"mobile-web-dev": webDevPhotoSlots,
 	"quantitative-finance": makePhotoSlots(),
-	"game-development": makePhotoSlots(),
-	"cybersecurity": makePhotoSlots(),
-	"data-science-ml": makePhotoSlots(),
+	"game-development": gameDevPhotoSlots,
+	"cybersecurity": cybersecurityPhotoSlots,
+	"data-science-ml": dataSciPhotoSlots,
 };
 
 export type ScheduleEvent = {
