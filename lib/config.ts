@@ -883,19 +883,6 @@ export const EVENT_SPEAKERS: Speaker[] = [
 			// website: "https://example.com"
 		},
 		role: "KEYNOTE SPEAKER"
-	},
-	{
-		name: "Coming Soon...",
-		title: "To Be Announced",
-		organization: "TBA",
-		track: "Mobile & Web Dev",
-		photo: "/main-event/gdg-speaker-avatar.png",
-		slug: "coming-soon-3",
-		bio: "Biography coming soon. Stay tuned for updates on our keynote speakers!",
-		socials: {
-			linkedin: "https://linkedin.com/in/",
-			website: "https://example.com"
-		}
 	}
 ];
 
