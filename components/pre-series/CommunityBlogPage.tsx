@@ -52,7 +52,7 @@ export default function CommunityBlogPage({ communityName, communitySlug }: Prop
             {/* Back nav */}
             <div className="mx-auto w-full max-w-4xl px-4 pt-8 sm:px-6 lg:px-8">
                 <Link
-                    href="/pre-series"
+                    href={`/pre-series/${communitySlug}`}
                     className="inline-flex items-center gap-2 text-sm font-semibold text-ink/60 transition-colors hover:text-ink"
                 >
                     <FiArrowLeft size={14} aria-hidden="true" />

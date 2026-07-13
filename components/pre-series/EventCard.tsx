@@ -55,57 +55,74 @@ export default function EventCard({ event, index }: EventCardProps) {
             />
 
             <div className="flex flex-1 flex-col px-6 py-6">
-                {/* Top row: branding + status */}
-                <div className="flex items-center justify-between">
-                    <Image
-                        src="/event-header.svg"
-                        alt="Event card header"
-                        width={120}
-                        height={14}
-                        className="h-4 w-auto opacity-75"
-                    />
-                    {event.status === "upcoming" && (
-                        <span className="rounded-full bg-halftoneYellow/40 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wide text-ink/70">
-                            Upcoming
-                        </span>
-                    )}
-                    {event.status === "past" && (
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-halftoneGreen/30 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wide text-green-700">
-                            <FiCheckCircle size={11} aria-hidden="true" />
-                            Completed
-                        </span>
-                    )}
-                </div>
-
-                {/* Community badge */}
-                <div className="mt-4">
-                    <PillTag
-                        label={event.community}
-                        color={accentColor}
-                        className="w-fit px-3 py-1.5 text-xs shadow-none ring-0"
-                    />
-                </div>
-
-                {/* Title */}
-                <h2 className="mt-5 min-h-16 text-2xl font-bold leading-snug text-ink">
-                    {event.title}
-                </h2>
-
-                {/* Meta */}
-                <dl className="mt-4 space-y-2 text-sm text-ink/75">
-                    <div className="flex items-center gap-2">
-                        <FiCalendar aria-hidden="true" className="shrink-0" />
-                        <dd>{event.date}</dd>
+                {/* Clickable body → dedicated event page */}
+                <Link
+                    href={`/pre-series/${event.communitySlug}`}
+                    className="group flex flex-1 flex-col outline-none"
+                    aria-label={`View ${event.community} event details`}
+                >
+                    {/* Top row: branding + status */}
+                    <div className="flex items-center justify-between">
+                        <Image
+                            src="/event-header.svg"
+                            alt="Event card header"
+                            width={120}
+                            height={14}
+                            className="h-4 w-auto opacity-75"
+                        />
+                        {event.status === "upcoming" && (
+                            <span className="rounded-full bg-halftoneYellow/40 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wide text-ink/70">
+                                Upcoming
+                            </span>
+                        )}
+                        {event.status === "past" && (
+                            <span className="inline-flex items-center gap-1.5 rounded-full bg-halftoneGreen/30 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wide text-green-700">
+                                <FiCheckCircle size={11} aria-hidden="true" />
+                                Completed
+                            </span>
+                        )}
                     </div>
-                    <div className="flex items-center gap-2">
-                        <FiMapPin aria-hidden="true" className="shrink-0" />
-                        <dd>{event.location}</dd>
+
+                    {/* Community badge */}
+                    <div className="mt-4">
+                        <PillTag
+                            label={event.community}
+                            color={accentColor}
+                            className="w-fit px-3 py-1.5 text-xs shadow-none ring-0"
+                        />
                     </div>
-                    <div className="flex items-center gap-2">
-                        <FiLayers aria-hidden="true" className="shrink-0" />
-                        <dd>{event.format}</dd>
-                    </div>
-                </dl>
+
+                    {/* Title */}
+                    <h2 className={`mt-5 min-h-16 text-2xl font-bold leading-snug text-ink transition-colors`}>
+                        {event.title}
+                    </h2>
+
+                    {/* Meta */}
+                    <dl className="mt-4 space-y-2 text-sm text-ink/75">
+                        <div className="flex items-center gap-2">
+                            <FiCalendar aria-hidden="true" className="shrink-0" />
+                            <dd>{event.date}</dd>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <FiMapPin aria-hidden="true" className="shrink-0" />
+                            <dd>{event.location}</dd>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <FiLayers aria-hidden="true" className="shrink-0" />
+                            <dd>{event.format}</dd>
+                        </div>
+                    </dl>
+
+                    {/* View details affordance */}
+                    <span className="mt-5 inline-flex items-center gap-1.5 text-xs font-semibold text-ink/60 transition-colors">
+                        View event details
+                        <FiArrowUpRight
+                            size={13}
+                            aria-hidden="true"
+                            className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                        />
+                    </span>
+                </Link>
 
                 {/* ── CTAs ── */}
                 <div className="mt-auto pt-6">

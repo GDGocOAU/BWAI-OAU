@@ -63,7 +63,7 @@ export default function OrganizingCommitteePage() {
 
 							{/* Role label */}
 							{/* <div className="mt-4 flex items-center gap-2">
-								<span className="text-[10px] font-light tracking-[0.2em] text-coreBlue uppercase">
+								<span className="text-[10px] font-medium tracking-[0.2em] text-coreBlue uppercase">
 									{organizer.role}
 								</span>
 							</div> */}
@@ -74,10 +74,10 @@ export default function OrganizingCommitteePage() {
 							</h2>
 
 							{/* Course + Level */}
-							<p className="mt-1 text-xs text-ink/55 leading-relaxed">
-								{organizer.course}
+							<p className="mt-1 text-sm text-ink/55 leading-relaxed">
+								{organizer.role}
 								<br />
-								<span className="font-medium text-ink/70">{organizer.level}</span>
+								{/* <span className="font-medium text-ink/70">{organizer.level}</span> */}
 							</p>
 
 							{/* Social icons */}

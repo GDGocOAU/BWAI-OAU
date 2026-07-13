@@ -218,6 +218,93 @@ export const PRESERIES_PHOTO_SLOTS: Record<string, string[]> = {
 	"data-science-ml": dataSciPhotoSlots,
 };
 
+export type PreSeriesSpeaker = {
+	name: string;
+	role: string; // e.g. "Facilitator", "Community Lead", "Speaker"
+	organization?: string;
+	photo: string;
+	socials?: SocialLinks;
+};
+
+export type PreSeriesEventDetail = {
+	description: string;
+	banner: string;
+	hasBlog: boolean;
+	projectCommunity?: string;
+	speakers: PreSeriesSpeaker[];
+};
+
+// Generic avatar used until real speaker photos are supplied
+const PLACEHOLDER_SPEAKER_AVATAR = "/main-event/gdg-speaker-avatar.png";
+
+export const PRESERIES_EVENT_DETAILS: Record<string, PreSeriesEventDetail> = {
+	"mobile-web-dev": {
+		description:
+			"The Web & Mobile Dev community kicked off the pre-series with a hands-on look at how AI is reshaping the modern web workflow. Attendees explored vibe coding, AI-assisted development, and how to design and ship AI agent interfaces — building real, production-ready features from the ground up.",
+		banner: webDevPhotoSlots[3],
+		hasBlog: true,
+		projectCommunity: "Web & Mobile Dev",
+		speakers: [
+			{
+				name: "Joseph Oyetunde",
+				role: "Community Lead",
+				organization: "Web Dev, GDG OAU",
+				photo: "/organizers/codegod.jpg",
+			},
+			{
+				name: "Temi",
+				role: "Community Co-Lead",
+				organization: "Web Dev, GDG OAU",
+				photo: "/organizers/codegod.jpg",
+			},
+			{
+				name: "Naheem Adisa",
+				role: "Facilitator",
+				organization: "Web Dev, GDG OAU",
+				photo: "/organizers/codegod.jpg",
+			},
+			{
+				name: "Enoch Idowu",
+				role: "Facilitator",
+				organization: "Web Dev, GDG OAU",
+				photo: "/organizers/codegod.jpg",
+			},
+		],
+	},
+	"quantitative-finance": {
+		description:
+			"From Superpositions to Positions took the Quantitative Finance community on a virtual journey into quantum computing — from the fundamentals of superposition and quantum states to their promise for modern finance. The evening blended a keynote with idea refinement and one-on-one mentoring moments.",
+		banner: "/gdg-hero-background.png",
+		hasBlog: false,
+		projectCommunity: undefined,
+		speakers: [],
+	},
+	"game-development": {
+		description:
+			"A full day of building. The Game Development community dove into AI-assisted game design and rapid prototyping — exploring interactive systems through AI-powered creation and shipping playable ideas alongside industry speakers.",
+		banner: gameDevPhotoSlots[4],
+		hasBlog: false,
+		projectCommunity: "Game Dev & Design",
+		speakers: [],
+	},
+	"cybersecurity": {
+		description:
+			"Integrating AI into Cybersecurity gave attendees a practical playbook for using AI to strengthen security workflows — from AI-driven threat detection to hands-on time with modern security tooling.",
+		banner: cybersecurityPhotoSlots[5],
+		hasBlog: false,
+		projectCommunity: "Cloud & Cybersecurity",
+		speakers: [],
+	},
+	"data-science-ml": {
+		description:
+			"Build AI Agents with Antigravity showed the Data Science & ML community how to turn raw data into intelligent decisions — building AI agents end-to-end and diagnosing real-world problems with practical data workflows.",
+		banner: dataSciPhotoSlots[4],
+		hasBlog: false,
+		projectCommunity: "Data Science & ML",
+		speakers: [],
+	},
+};
+
 export type ScheduleEvent = {
 	id: number;
 	order: number;
@@ -1040,16 +1127,32 @@ export type Organizer = {
 
 export const ORGANIZERS: Organizer[] = [
 	{
+		name: "Blessing Agbor",
+		role: "Campus Lead",
+		course: "Bsc. Computer engineering",
+		level: "300 Level",
+		photo: "/organizers/blessing.jpeg",
+		socials: {},
+	},
+	{
 		name: "Akingunsoye Favour Adurapemi",
-		role: "Community Lead",
+		role: "Volunteer Lead",
 		course: "Bsc. Computer engineering",
 		level: "300 Level",
 		photo: "/organizers/adurapemi.jpeg",
 		socials: {},
 	},
 	{
+		name: "Sunmade",
+		role: "Quant Computing Lead",
+		course: "Bsc. Computer engineering",
+		level: "300 Level",
+		photo: "/organizers/sunmade.jpeg",
+		socials: {},
+	},
+	{
 		name: "Joseph Taiwo",
-		role: "Organizer",
+		role: "Cloud Computing Lead",
 		course: "BSc. Computer Science with Economics",
 		level: "400 Level",
 		photo: "/organizers/Aribad.jpeg",
@@ -1057,7 +1160,7 @@ export const ORGANIZERS: Organizer[] = [
 	},
 	{
 		name: "Moshood Bushroh",
-		role: "Organizer",
+		role: "Cybersecurity Co-Lead",
 		course: "BSc. Computer Science with Mathematics",
 		level: "200 Level",
 		photo: "/organizers/bushroh.jpeg",
@@ -1065,7 +1168,7 @@ export const ORGANIZERS: Organizer[] = [
 	},
 	{
 		name: "Adesina Lekan Samuel ",
-		role: "Organizer",
+		role: "Quant Finance Lead",
 		course: "BSc. Computer Science with Mathematics",
 		level: "400 Level",
 		photo: "/organizers/Limitless.jpeg",
@@ -1073,7 +1176,7 @@ export const ORGANIZERS: Organizer[] = [
 	},
 	{
 		name: "St. Mark Adebayo",
-		role: "Organizer",
+		role: "Data Science & ML Co-Lead",
 		course: "BSc Microbiology",
 		level: "400 Level",
 		photo: "/organizers/stmarkadebayo.png",
@@ -1081,7 +1184,7 @@ export const ORGANIZERS: Organizer[] = [
 	},
 	{
 		name: "Joseph Oyetunde",
-		role: "Organizer",
+		role: "Web Development Lead",
 		course: "BSc Computer Science & Engineering",
 		level: "400 Level",
 		photo: "/organizers/codegod.jpg",
