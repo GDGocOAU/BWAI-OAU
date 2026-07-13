@@ -21,7 +21,7 @@ function SpeakerCard({ index, speaker, role = "SPEAKER" }: { index: number; spea
 		>
 			{/* Track Badge - Top Left */}
 			{ role == "PANELIST" && (
-				<span className="absolute top-4 left-4 z-10 inline-flex items-center rounded-full bg-halftoneBlue px-3 py-1 text-xs font-bold text-ink opacity-90">
+				<span className={`absolute top-4 left-4 z-10 inline-flex items-center rounded-full ${speaker.track == "Cybersecurity" ? "bg-halftoneBlue" : "bg-halftoneGreen"} px-3 py-1 text-xs font-bold text-ink opacity-90`}>
 					{speaker.track}
 				</span>
 			)}

@@ -154,7 +154,7 @@ export default function MainEventSection() {
 						/>
 					</motion.h2>
 
-					<div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 justify-items-center">
+					<div className="grid gap-8 sm:grid-cols-2 justify-items-center">
 						{EVENT_SPEAKERS.map((speaker, index) => (
 							<SpeakerCard
 								key={index}

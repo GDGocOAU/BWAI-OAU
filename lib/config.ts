@@ -914,7 +914,7 @@ export type Panelist = {
 	title: string;
 	photo: string;
 	organization: string;
-	track: string;
+	track: "Cybersecurity" | "AI Governance & Policy";
 	socials?: SocialLinks;
 	slug: string;
 	bio: string;
@@ -1058,6 +1058,25 @@ Damilola has trained and mentored hundreds of learners through cybersecurity com
 		`,
 		socials: {
 			linkedin: "https://www.linkedin.com/in/ridwan-badmus-aciarb/",
+			// website: "https://example.com"
+		}
+	},
+	{
+		name: "Ayomide Odumakinde",
+		title: "AI Research Scientist",
+		organization: "Cohere Labs",
+		track: "AI Governance & Policy",
+		photo: "/main-event/ayomide_odumakinde.jpeg",
+		slug: "ayomide-odumakinde",
+		bio: `
+			Ayomide Odumakinde is a Nigerian AI researcher whose path from Obafemi Awolowo University (OAU) to the frontier of multilingual AI research has become a notable case study in African AI talent development. After graduating, he spent roughly two and a half years self-teaching mathematics and machine learning from textbooks before being selected for Cohere's Scholars Program, one of just six chosen from a pool of about three thousand global applicants. 
+			
+			He has since worked as a researcher with Cohere Labs (formerly Cohere For AI), where his work includes the widely cited paper "Multilingual Arbitrage: Optimizing Data Pools to Accelerate Multilingual Progress," co-authored with Daniel D'Souza, Pat Verga, Beyza Ermiş, and Sara Hooker, which introduced a technique for sampling synthetic training data across a diverse pool of teacher models to close performance gaps in lower-resource languages; the paper was presented at ACL 2025 in Vienna. 
+			
+			Beyond his technical research, Odumakinde has spoken publicly on the societal risks of generative AI in the Nigerian context, including the accessibility of deepfake tools and their implications for the country's 2027 elections. He now joins the 2026 BWAI OAU AI Governance Panel Session as a speaker.
+		`,
+		socials: {
+			linkedin: "https://www.linkedin.com/in/ayoodumak",
 			// website: "https://example.com"
 		}
 	},
