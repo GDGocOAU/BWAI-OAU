@@ -125,9 +125,8 @@ export default function EventCard({ event, index }: EventCardProps) {
                 </Link>
 
                 {/* ── CTAs ── */}
-                <div className="mt-auto pt-6">
+                {/* <div className="mt-auto pt-6">
                     {event.status === "past" ? (
-                        /* Past events: 3 action links */
                         <div className="flex flex-wrap gap-2">
                             <Link
                                 href={`/pre-series/${event.communitySlug}/blog`}
@@ -152,7 +151,6 @@ export default function EventCard({ event, index }: EventCardProps) {
                             </Link>
                         </div>
                     ) : (
-                        /* Upcoming events: single Get Tickets CTA */
                         <Link
                             href={event.registrationHref}
                             target={isExternal ? "_blank" : undefined}
@@ -168,7 +166,7 @@ export default function EventCard({ event, index }: EventCardProps) {
                             </span>
                         </Link>
                     )}
-                </div>
+                </div> */}
             </div>
         </motion.article>
     );
