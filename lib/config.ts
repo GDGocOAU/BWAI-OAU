@@ -223,6 +223,7 @@ export type PreSeriesSpeaker = {
 	role: string; // e.g. "Facilitator", "Community Lead", "Speaker"
 	organization?: string;
 	photo: string;
+	bio?: string;
 	socials?: SocialLinks;
 };
 
@@ -1132,6 +1133,115 @@ export const EVENT_SCHEDULE = [
 		time: "4:00 PM",
 		title: "Closing Remarks",
 		description: "By the Campus Lead (Blessing Agbor) and event organizers",
+	},
+];
+
+export type BreakoutSession = {
+	track: string;
+	slug: string;
+	title: string;
+	summary: string;
+	description: string;
+	accent: keyof typeof HERO_PILL_TONE_COLORS;
+	speakers: PreSeriesSpeaker[];
+};
+
+export const BREAKOUT_SESSIONS: BreakoutSession[] = [
+	{
+		track: "Web Development",
+		slug: "web-development",
+		title: "Building AI-Native Web Products",
+		summary:
+			"Hands-on session on shipping AI-assisted web products — from vibe coding to production-ready agent interfaces.",
+		description:
+			"This breakout dives into how AI is reshaping the modern web workflow. Expect a practical look at AI-assisted development, designing interfaces for agentic features, and patterns for shipping real, production-ready web products fast. Attendees will leave with a clearer sense of how to fold AI tooling into their day-to-day build process.",
+		accent: "coreGreen",
+		speakers: [],
+	},
+	{
+		track: "Data Science",
+		slug: "data-science",
+		title: "AI Agents for Data-Driven Work",
+		summary:
+			"A practical walkthrough of building and deploying AI agents for real data science workflows.",
+		description:
+			"The Data Science breakout focuses on where AI agents actually earn their keep in a data workflow — from data wrangling to model-assisted analysis. Expect live demos and hands-on exercises building agents that plug into real pipelines, plus a look at the tooling landscape for taking these ideas from notebook to production.",
+		accent: "coreBlue",
+		speakers: [
+			{
+				name: "Abayomi Abiodun",
+				role: "",
+				organization: "Data Scientist and Machine Learning Engineer",
+				photo: "/main-event/abayomi_abiodun.jpeg",
+				bio: `
+					Abayomi Abiodun is a Data Scientist, Machine Learning Engineer, and Microsoft Most Valuable Professional (MVP) passionate about building AI-powered solutions and developing the next generation of technology talent. He attained a gold milestone as a Microsoft Learn Student Ambassador during his undergraduate and he previously served as the Google Developer Student Clubs (GDSC) Lead at Obafemi Awolowo University (OAU), where he led initiatives that empowered students with practical technology skills and fostered a vibrant developer community.
+
+					Abayomi is an internationally recognized speaker. Abayomi has delivered keynote talks, workshops, and panel sessions at numerous conferences, universities, and technology events, engaging audiences across Africa.
+				`,
+				socials: {
+					linkedin: "https://www.linkedin.com/in/abayomi-abiodun",
+				}
+			},
+		],
+	},
+	{
+		track: "Cybersecurity",
+		slug: "cybersecurity",
+		title: "Securing Systems in the Age of AI",
+		summary:
+			"Insights on AI-augmented security work — from threat detection to securing AI-powered systems.",
+		description:
+			"This breakout explores the two-way relationship between AI and security: using AI to strengthen threat detection and response, and the new attack surfaces that AI-powered systems introduce. Attendees will get a grounded look at practical tools and techniques for integrating AI into a security workflow responsibly.",
+		accent: "gray",
+		speakers: [
+			{
+				name: "Olúmáyòwá Akinkuehinmi",
+				role: "",
+				organization: "DevOps Engineer & AI Solutions Architect",
+				photo: "/main-event/olumayowa.jpeg",
+				bio: `
+					Olúmáyòwá is a DevOps Engineer, AI Solutions Architect, open source contributor, and Cisco Champion 2024 & 2025 with expertise in cloud infrastructure, cybersecurity, networking, and AI.
+					He is the Founder of TechPeak Lab, where he leads initiatives that equip professionals across Africa with in-demand technology skills.
+					
+					As a former Subsea Network Engineer, he played a key role in deploying and interconnecting carrier-grade data centres and submarine cable landing stations across West Africa and Europe.
+					His work now focuses on building secure enterprise AI solutions, intelligent agents, and agentic workflows using LangChain, MCP, n8n, and large language models.
+					
+					With over a decade of industry experience, he has delivered large-scale cloud and network projects while also training technology professionals.
+					Olúmáyòwá is a speaker, mentor, and instructor dedicated to helping individuals and organizations leverage AI, cloud, and cybersecurity to drive digital transformation.
+				`,
+				socials: {
+					linkedin: "https://www.linkedin.com/in/olumayowaa",
+				}
+			},
+		],
+	},
+	{
+		track: "Design",
+		slug: "design",
+		title: "Designing for AI-Powered Products",
+		summary:
+			"A look at how AI is changing product design — from AI-assisted design workflows to designing trustworthy AI interfaces.",
+		description:
+			"The Design breakout looks at what changes for product and UX design when AI is part of the product itself. Expect a walkthrough of AI-assisted design tooling, patterns for designing clear and trustworthy AI-powered interfaces, and discussion on where designers fit into fast-moving AI product teams.",
+		accent: "coreYellow",
+		speakers: [
+			{
+				name: "Faith Adeyinka",
+				role: "",
+				organization: "Product Designer",
+				photo: "/main-event/faith_adeyinka.jpeg",
+				bio: `
+					Faith Adeyinka is a Product Designer and final-year Computer Engineering student passionate about designing technology that solves meaningful human problems. Her work spans product design, AI-assisted workflows, and emerging technologies, with a growing focus on emotionally intelligent experiences, wearable technology, and women's health.
+
+					Driven by curiosity and a love for problem-solving, Faith explores how AI can enhance the design process, from research and ideation to critique and decision-making, all while keeping human-centred thinking at the core.
+
+					Beyond her work, she is passionate about sharing knowledge and mentoring aspiring designers, helping the next generation of creatives build confidently with AI.
+				`,
+				socials: {
+					linkedin: "https://www.linkedin.com/in/faith-adeyinka-adetomilola",
+				}
+			},
+		],
 	},
 ];
 

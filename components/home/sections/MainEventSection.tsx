@@ -9,6 +9,7 @@ import BlackPillButton from "@/components/BlackPillButton";
 import SpeakerCard from "@/components/main-event/SpeakerCard";
 import PhotoCarousel from "@/components/main-event/PhotoCarousel";
 import TimelineSchedule from "@/components/main-event/TimelineSchedule";
+import BreakoutSessionCard from "@/components/main-event/BreakoutSessionCard";
 import TicketPlaceholder from "@/components/main-event/TicketPlaceholder";
 import CustomizeTicketForm from "@/components/main-event/CustomizeTicketForm";
 import {
@@ -17,6 +18,7 @@ import {
 	EVENT_SCHEDULE,
 	EVENT_LOCATION,
 	EVENT_PANELISTS,
+	BREAKOUT_SESSIONS,
 } from "@/lib/config";
 import GhostPillButton from "@/components/GhostPillButton";
 
@@ -192,6 +194,40 @@ export default function MainEventSection() {
 								index={index}
 								speaker={panelist}
 								role="PANELIST"
+							/>
+						))}
+					</div>
+				</div>
+			</section>
+						
+			{/* Breakout Sessions */}
+			<section className="px-4 py-16 sm:px-6 lg:px-8">
+				<div className="mx-auto max-w-7xl">
+					<motion.h2
+						className="mb-4 flex items-center justify-center gap-2 sm:gap-3 text-center text-2xl font-bold text-ink sm:text-4xl"
+						initial={{ opacity: 0, y: 24 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						viewport={{ once: false, amount: 0.4 }}
+						transition={{ duration: 0.6 }}
+					>
+						Breakout Sessions
+						<img
+							src="/branding.png"
+							alt="GDG Branding"
+							className="h-6 sm:h-8 w-auto"
+						/>
+					</motion.h2>
+					<p className="mb-12 text-center text-ink/70 max-w-2xl mx-auto">
+						Four tracks running in parallel at 1:00 PM. Pick the one that
+						matches what you build.
+					</p>
+
+					<div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+						{BREAKOUT_SESSIONS.map((session, index) => (
+							<BreakoutSessionCard
+								key={session.slug}
+								session={session}
+								index={index}
 							/>
 						))}
 					</div>
