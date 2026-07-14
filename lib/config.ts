@@ -253,22 +253,22 @@ export const PRESERIES_EVENT_DETAILS: Record<string, PreSeriesEventDetail> = {
 				photo: "/organizers/codegod.jpg",
 			},
 			{
-				name: "Temi",
+				name: "Teminioluwa Adekoya",
 				role: "Community Co-Lead",
 				organization: "Web Dev, GDG OAU",
-				photo: "/organizers/codegod.jpg",
+				photo: "/organizers/temiloluwa_adekoya.jpeg",
 			},
 			{
 				name: "Naheem Adisa",
 				role: "Facilitator",
-				organization: "Web Dev, GDG OAU",
-				photo: "/organizers/codegod.jpg",
+				organization: "Software Engineer",
+				photo: "/preseries/web-dev/naheem_adisa.jpeg",
 			},
 			{
 				name: "Enoch Idowu",
 				role: "Facilitator",
-				organization: "Web Dev, GDG OAU",
-				photo: "/organizers/codegod.jpg",
+				organization: "Software Engineer",
+				photo: "/preseries/web-dev/enoch_idowu.jpeg",
 			},
 		],
 	},
@@ -286,7 +286,18 @@ export const PRESERIES_EVENT_DETAILS: Record<string, PreSeriesEventDetail> = {
 		banner: gameDevPhotoSlots[4],
 		hasBlog: false,
 		projectCommunity: "Game Dev & Design",
-		speakers: [],
+		speakers: [
+			{
+				name: "Chisom Ogbonna",
+				role: "Facilitator",
+				photo: "/preseries/game-dev/chisom_ogbonna.jpeg",
+			},
+			{
+				name: "Daveeola",
+				role: "Facilitator",
+				photo: "/preseries/game-dev/daveeola.jpg",
+			},
+		],
 	},
 	"cybersecurity": {
 		description:
