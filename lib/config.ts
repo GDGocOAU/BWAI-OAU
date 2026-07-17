@@ -301,19 +301,36 @@ export const PRESERIES_EVENT_DETAILS: Record<string, PreSeriesEventDetail> = {
 	},
 	"cybersecurity": {
 		description:
-			"Integrating AI into Cybersecurity gave attendees a practical playbook for using AI to strengthen security workflows — from AI-driven threat detection to hands-on time with modern security tooling.",
+		"Integrating AI into Cybersecurity gave attendees a practical playbook for using AI to strengthen security workflows — from AI-driven threat detection to hands-on time with modern security tooling.",
 		banner: cybersecurityPhotoSlots[5],
 		hasBlog: false,
 		projectCommunity: "Cloud & Cybersecurity",
-		speakers: [],
+		speakers: [
+			{
+				name: "Samuel Omolewa",
+				role: "Facilitator",
+				photo: "/preseries/cybersecurity/samuel_omolewa.jpeg",
+			},
+		],
 	},
 	"data-science-ml": {
 		description:
-			"Build AI Agents with Antigravity showed the Data Science & ML community how to turn raw data into intelligent decisions — building AI agents end-to-end and diagnosing real-world problems with practical data workflows.",
+		"Build AI Agents with Antigravity showed the Data Science & ML community how to turn raw data into intelligent decisions — building AI agents end-to-end and diagnosing real-world problems with practical data workflows.",
 		banner: dataSciPhotoSlots[4],
 		hasBlog: false,
 		projectCommunity: "Data Science & ML",
-		speakers: [],
+		speakers: [
+			{
+				name: "Olamide Lawal",
+				role: "Facilitator",
+				photo: "/organizers/olamide_lawal.jpg",
+			},
+			{
+				name: "St. Mark Adebayo",
+				role: "Facilitator",
+				photo: "/organizers/stmarkadebayo.png",
+			},
+		],
 	},
 };
 
@@ -1296,6 +1313,22 @@ export const ORGANIZERS: Organizer[] = [
 		course: "BSc. Computer Science with Economics",
 		level: "400 Level",
 		photo: "/organizers/Aribad.jpeg",
+		socials: {},
+	},
+	{
+		name: "Olamide Lawal ",
+		role: "Data Science & ML Lead",
+		course: "BSc. Electrical & Electronics Engineering",
+		level: "300 Level",
+		photo: "/organizers/olamide_lawal.jpg",
+		socials: {},
+	},
+	{
+		name: "Teminioluwa Adekoya ",
+		role: "Web Development Co-Lead",
+		course: "BSc. Computer Engineering",
+		level: "300 Level",
+		photo: "/organizers/temiloluwa_adekoya.jpeg",
 		socials: {},
 	},
 	{
